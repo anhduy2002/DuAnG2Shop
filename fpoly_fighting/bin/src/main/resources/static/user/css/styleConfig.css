@@ -1,0 +1,101 @@
+.logo.logo-header {
+	height: 88px;
+	margin: 0;
+}
+
+.logo-header img {
+	height: 100%;
+}
+
+.navigation .pagination .disabled {
+  	pointer-events: none;
+	cursor: not-allowed;
+}
+
+.login-auth .button {
+	border-radius: 5px;
+}
+
+.pagination a {
+	cursor: pointer;
+}
+
+.user-profile {
+	position: relative;
+}
+
+.user-profile .sub-menu {
+	display: block;
+    position: absolute;
+    min-width: 130px;
+    background: #fff;
+    right: 10px;
+    top: 80%;
+    visibility: hidden;
+    opacity: 0;
+    text-align: left;
+    z-index: 1;
+    box-shadow: 0 0 10px 3px rgb(0 0 0 / 5%);
+    padding: 6px 0 10px;
+    border-top: 4px solid #336699;
+    border-bottom: 2px solid #336699;
+    border-radius: 7px 7px 3px 3px;
+    -webkit-transition: all .2s ease-out 0s;
+    -moz-transition: all .2s ease-out 0s;
+    -ms-transition: all .2s ease-out 0s;
+    -o-transition: all .2s ease-out 0s;
+    transition: all .2s ease-out 0s;
+}
+
+.user-profile .sub-menu::before {
+    border-style: solid;
+    border-width: 0 6px 6px 6px;
+    border-color: transparent transparent #336699 transparent;
+    content: "";
+    top: -10px;
+    right: 25%;
+    position: absolute;
+    transition: .3s;
+    z-index: -1;
+    overflow: hidden;
+    -webkit-transition: all .2s ease-out 0s;
+    -moz-transition: all .2s ease-out 0s;
+    -ms-transition: all .2s ease-out 0s;
+    -o-transition: all .2s ease-out 0s;
+    transition: all .3s ease-out 0s;
+}
+
+.user-profile::after {
+    content: "";
+    top: 18px;
+    left: 0px;
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 16px;
+}
+
+.user-profile:hover .sub-menu {
+	visibility: visible;
+    opacity: 1;
+    top: 140%;
+}
+
+.user-profile .sub-menu li a {
+    font-size: 16px;
+    color: #252525;
+    font-weight: 600;
+    padding: 8px 20px;
+    text-transform: capitalize;
+    display: block;
+    -webkit-transition: all .2s ease-out 0s;
+    -moz-transition: all .2s ease-out 0s;
+    -ms-transition: all .2s ease-out 0s;
+    -o-transition: all .2s ease-out 0s;
+    transition: all .3s ease-out 0s;
+}
+
+.user-profile .sub-menu li a:hover {
+    color: #336699;
+    background: rgb(0 0 0 / 5%);
+}

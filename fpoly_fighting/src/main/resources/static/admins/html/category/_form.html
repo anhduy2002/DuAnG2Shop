@@ -1,0 +1,59 @@
+<h4 class="v-font-weight-3">CHỈNH SỬA LOẠI SẢN PHẨM</h4>
+<hr>
+<div class="d-flex">
+	<div class="w-50">
+		<div class="my-3 px-2">
+			<label class="mb-2">Mã loại sản phẩm:</label>
+			<input class="form-control" ng-model="form.id" type="number" min="1" disabled>
+		</div>
+		<div class="my-3 px-2">
+			<label class="mb-2">Tên loại sản phẩm:</label>
+			<input class="form-control" ng-model="form.name">
+		</div>
+		<div class="my-3 px-2">
+			<label class="mb-2">Slug:</label>
+			<input class="form-control" ng-model="form.slug">
+		</div>
+		<div class="my-3 px-2">
+			<label class="mb-2">Ảnh minh họa:</label>
+			<input 
+				class="form-control" 
+				ng-model="form.imageName" 
+				type="file" 
+				id="image" 
+				onchange="angular.element( this ).scope().imageChanged( this.files )"
+			>
+		</div>
+	</div>
+	<div class="w-50 p-5 vertical-align-middle">
+		<label for="image" class="border border-secondary v-shadow-5">
+			<img ng-if="!form.imageName" src="/images/upload.png" width="250px" height="250px">
+			<img ng-if="form.imageName" ng-src="{{ '/images/categories/' + form.imageName }}" width="250px" height="250px">
+		</label>
+	</div>
+</div>
+<div>
+	<div class="w-100 my-2 px-2 text-right">
+		<input id="input-isDeleted" ng-model="form.isDeleted" type="checkbox">
+		<label for="input-isDeleted" class="text-danger ml-1 v-cursor-pointer">Xóa loại sản phẩm</label>
+	</div>
+</div>
+<hr>
+<div>
+	<button class="btn btn-success v-shadow-5 mx-2" ng-click="create()">
+		<i class="fas fa-plus mr-1"></i>
+		Thêm mới
+	</button>
+	<button class="btn btn-info v-shadow-5 mx-2" ng-click="update()">
+		<i class="fas fa-pen mr-1"></i>
+		Cập nhật
+	</button>
+	<button class="btn btn-light v-shadow-5 mx-2" ng-click="reset()">
+		<i class="fas fa-ban mr-1"></i>
+		Làm mới
+	</button>
+	<button class="btn btn-danger v-shadow-5 mx-2 float-right" ng-click="delete()">
+		<i class="fas fa-trash mr-1"></i>
+		Xóa
+	</button>
+</div>

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout/layout::dynamic( ~{ ::title } , ~{ ::main } )}">
+<title>Đăng nhập - G2Shop</title>
+<main>
+	<div class="container my-3">
+	    <div class="row">
+	    	<div class="col-12 px-3">
+	      		<a href="/" class="v-a-3 mr-1 text-secondary v-font-size-small">Trang chủ</a> /
+	      		<a href="/dang-nhap" class="v-a-3 mx-1 text-secondary v-font-size-small v-font-weight-6">Đăng nhập</a>
+	      	</div>
+	    </div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-12 px-3">
+				<h6 class="v-font-weight-6">Khách hàng mới</h6>
+				Bằng cách tạo tài khoản G2SHOP, bạn sẽ có thể đặt hàng, xem lịch sử đặt hàng và nhiều hơn thế.
+				<a href="/dang-ky" class="v-text v-font-weight-6 mt-2 d-block"><u>Tạo tài khoản</u></a>
+			</div>
+			<div class="col-lg-6 col-md-12 px-3">
+				<hr class="d-lg-none my-4">
+				<h6 class="v-font-weight-6">Khách hàng đã đăng ký</h6>
+				Nếu bạn đã có tài khoản G2SHOP, hãy đăng nhập.
+				<form method="post" action="/dang-nhap">
+					<div class="my-3">
+						<label>
+							Tên đăng nhập:
+							<span class="text-danger">*</span>
+						</label>
+	                  	<input 
+	                  		type="text" 
+	                  		class="form-control required-entry w-100"
+	                  		name="username"
+	                  		style= "max-width: 300px !important"
+	                  	>
+					</div>
+					<div class="my-3">
+						<label>
+							Mật khẩu:
+							<span class="text-danger">*</span>
+						</label>
+						<input 
+							type="password" 
+							class="form-control required-entry validate-password w-100" 
+							name="password" 
+							style= "max-width: 300px !important"
+						>
+					</div>
+					<div class="my-2">
+			        	<input type="checkbox" title="remember" id="remember" name="remember-me" class="mr-1">
+			       		<label for="remember">Ghi nhớ tài khoản</label>
+		        	</div>
+		        	<div class="my-2">
+			        	<button type="submit" class="btn btn-info v-shadow-5">
+			        		<span>Đăng nhập</span>
+			        	</button>
+	                	<a href="/dang-nhap/quen-mat-khau" class="ml-2 text-warning">Quên mật khẩu?</a>
+                	</div>
+                	<div class="mt-3">
+            			<span class="text-secondary">Hoặc đăng nhập với</span>
+			            <div class="mt-2">
+			            	<a href="/dang-nhap-tu-mxh/facebook" class="btn btn-light text-info" >
+			            		Với Facebook
+			            		<i class="fa-brands fa-facebook-f ms-2"></i>
+			            	</a>
+			            	<a href="/dang-nhap-tu-mxh/google" class="btn btn-light text-success ml-2">
+			            		Với Google
+			            		<i class="fa-brands fa-google ms-2"></i>
+			            	</a>
+			            </div>
+                	</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</main>
+</html>

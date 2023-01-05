@@ -1,0 +1,99 @@
+<nav class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
+    <button 
+    	class="nav-link active" 
+    	id="nav-tab-list" 
+    	data-bs-toggle="tab" 
+    	data-bs-target="#nav-list" 
+    	type="button" role="tab" 
+    	aria-controls="nav-list" 
+    	aria-selected="false">
+    		Danh sách đơn hàng
+    </button>
+    <button 
+    	ng-if="loggedInStaff.role.id == 2 || loggedInStaff.role.id == 3 "
+    	class="nav-link" 
+    	id="nav-tab-list-os-0" 
+    	data-bs-toggle="tab" 
+    	data-bs-target="#nav-list-os-0" 
+    	type="button" role="tab" 
+    	aria-controls="nav-list-os-0" 
+    	aria-selected="false">
+    		Đơn cần xác nhận <span class="text-danger">(<b>{{ itemsOs0.length }}</b>)</span>
+    </button>
+    <button 
+    	ng-if="loggedInStaff.role.id == 2 || loggedInStaff.role.id == 4"
+    	class="nav-link" 
+    	id="nav-tab-list-os-1" 
+    	data-bs-toggle="tab" 
+    	data-bs-target="#nav-list-os-1" 
+    	type="button" role="tab" 
+    	aria-controls="nav-list-os-1" 
+    	aria-selected="false">
+    		Đơn cần người giao <span class="text-danger">(<b>{{ itemsOs1.length }}</b>)</span>
+    </button>
+    <button
+    	ng-if="loggedInStaff.role.id == 4"
+    	class="nav-link" 
+    	id="nav-tab-list-for-shipping-staff" 
+    	data-bs-toggle="tab" 
+    	data-bs-target="#nav-list-for-shipping-staff" 
+    	type="button" role="tab" 
+    	aria-controls="nav-list-for-shipping-staff" 
+    	aria-selected="false">
+    		Đơn bạn đang giao <span class="text-danger">(<b>{{ itemsForShippingStaff.length }}</b>)</span>
+    	</button>
+	<button 
+    	class="nav-link" 
+    	id="nav-tab-edit" 
+    	data-bs-toggle="tab" 
+    	data-bs-target="#nav-edit" 
+    	type="button" 
+    	role="tab" 
+    	aria-controls="nav-edit" 
+    	aria-selected="true">
+    		Chỉnh sửa đơn hàng
+    </button>
+</nav>
+
+<div class="tab-content p-4" id="nav-tabContent">
+  	<div 
+  		class="tab-pane fade show active" 
+  		id="nav-list" 
+  		role="tabpanel" 
+  		aria-labelledby="nav-list" 
+  		tabindex="0">
+  			<div ng-include="'/admins/html/order/_table.html'"></div>
+  	</div>
+  	<div 
+  		class="tab-pane fade" 
+  		id="nav-list-os-0" 
+  		role="tabpanel" 
+  		aria-labelledby="nav-list-os-0" 
+  		tabindex="1">
+  			<div ng-include="'/admins/html/order/_table_os_0.html'"></div>
+  	</div>
+  	<div 
+  		class="tab-pane fade" 
+  		id="nav-list-os-1" 
+  		role="tabpanel" 
+  		aria-labelledby="nav-list-os-1" 
+  		tabindex="2">
+  			<div ng-include="'/admins/html/order/_table_os_1.html'"></div>
+  	</div>
+  	<div 
+  		class="tab-pane fade" 
+  		id="nav-list-for-shipping-staff" 
+  		role="tabpanel" 
+  		aria-labelledby="nav-list-for-shipping-staff" 
+  		tabindex="3">
+  			<div ng-include="'/admins/html/order/_table_for_shipping_staff.html'"></div>
+  	</div>
+	<div 
+  		class="tab-pane fade" 
+  		id="nav-edit" 
+  		role="tabpanel" 
+  		aria-labelledby="nav-edit" 
+  		tabindex = "4">
+  			<div ng-include="'/admins/html/order/_form.html'"></div>
+  	</div>
+</div>

@@ -1,0 +1,41 @@
+<html>
+<body>
+
+<script src="Math.js"></script>
+<script src="P.js"></script>
+<script src="Size.js"></script>
+<script src="Rectangle.js"></script>
+<script src="Text.js"></script>
+<script src="Canvas.js"></script>
+<script src="Chart.js"></script>
+
+
+<canvas id="canvas" style="width:800px;height:750px;border:2px solid red" width="800px" height="750px">
+
+<script>
+	const chart = new Chart( 
+		new Text( "BIỂU ĐỒ BIẾN THIÊN GIÁ TRỊ Y THEO X" , new P( 180 , 50  ) , 20 ) ,
+		new Canvas( document.getElementById( "canvas" ) ) ,
+		new P( 100 , 650 ) ,
+		new Size( 500 , 500 ) ,
+		14 ,
+		100 , 10 ,
+		"X" , "Y" ,
+		30 ,
+		40 ,
+		new Size( -15 , 30 ) ,
+		new Size( -15 , -10 ) ,
+		new Note(
+			new P( 100 , 720 ) ,
+			[ "Ghi chú:    X: Giá trị của x | Y: Giá trị của y" ] ,
+			30
+		)
+	)
+	chart.items = []
+	for( let i = 0 ; i < 10 ; i ++ ){
+		chart.items.push( new ChartItem( i + 1 , Math.round( Math.random() * 99 + 1 ) , "#336699" ) ) 
+	}
+	chart.show()
+</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout/layout::dynamic( ~{ ::title } , ~{ ::main } )}">
+<title>Lịch sử đặt hàng - Người dùng - G2SHOP</title>
+<main>
+	<div class="container my-3">
+	    <div class="row">
+	    	<div class="col-12 px-3">
+	      		<a href="/" class="v-a-3 mr-1 text-secondary v-font-size-small">Trang chủ</a> /
+	      		<a href="/nguoi-dung/cap-nhat-tai-khoan" class="v-a-3 mx-1 text-secondary v-font-size-small">Thông tin người dùng</a> /
+	      		<a href="/khach-hang/lich-su-dat-hang" class="v-a-3 mx-1 text-secondary v-font-size-small v-font-weight-6">Lịch sử đặt hàng</a>
+	      	</div>
+	    </div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-12 px-3">
+				<div class="my-2">
+					Tổng số đơn hàng: <b>[[${ orderList.size }]]</b>
+				</div>
+				<div class="d-none d-lg-block">
+					<table class="table table-bordered table-hover bg-white rounded mb-0 v-shadow">
+			            <thead class="thead-light">
+			                <tr>
+			                	<th>STT</th>
+			                    <th class="text-center">Số ĐH</th>
+			                    <th class="text-center">Ngày đặt hàng</th>  
+			                    <th class="text-center">Trạng thái</th>
+			                    <th class="text-center">Ngày nhận hàng</th>
+			                    <th class="text-center">Giá trị đơn hàng</th>
+			                    <th></th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			                <tr th:each="order,iStat : ${ orderList }" 
+			                	th:class="${ 'v-bg-order-' + order.orderStatus.id  }">
+			                	<td>[[${ iStat.index + 1 }]]</td>
+			                    <td class="text-center">[[${ order.id } ]]</td>
+			                    <td class="text-center">
+			                    	[[${ #dates.format( order.createdDate , "dd-MM-yyyy - HH:mm" ) }]]
+			                    </td>
+			                    <td class="text-center">[[${ order.orderStatus.name }]]</td>
+			                    <td class="text-center">
+			                    	[[${ order.receivedDate == null ?'' : #dates.format( order.receivedDate , "dd-MM-yyyy - HH:mm:ss" ) }]]</td>
+			                    </td>
+			                    <td class="text-right">
+			                    	<h6 class="text-danger m-0 v-font-weight-6">
+			                    		[[${ #numbers.formatCurrency( order.totalCost ) }]]
+			                    	</h6>
+			                    </td>
+			                    <td class="text-center">
+			                    	<a 
+			                    		class="text-info" 
+			                    		th:href="@{|/khach-hang/lich-su-dat-hang/xem-don-hang?id=${ order.id }|}">
+			                    			Xem
+			                    	</a>
+			                    </td>
+			                </tr>
+			            </tbody>
+			        </table>
+				</div>
+				<div class="d-lg-none">
+					<table class="table bg-white table-hover rounded mb-0 v-shadow">
+			            <thead class="thead-light">
+			                <tr>
+			                    <th class="py-2 text-center">Số ĐH</th>
+			                    <th class="py-2 text-center">Ngày đặt hàng</th>  
+			                    <th class="py-2 text-center">Trạng thái</th>
+			                    <th></th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			                <tr th:each="order,iStat : ${ orderList }" 
+			                	th:class="${ 'v-bg-order-' + order.orderStatus.id  }">
+			                    <td class="text-center">[[${ order.id } ]]</td>
+			                    <td class="text-center">
+			                    	[[${ #dates.format( order.createdDate , "dd-MM-yyyy - HH:mm" ) }]]
+			                    </td>
+			                    <td class="text-center">[[${ order.orderStatus.name }]]</td>
+			                    <td class="text-center">
+			                    	<a 
+			                    		class="text-info" 
+			                    		th:href="@{|/khach-hang/lich-su-dat-hang/xem-don-hang?id=${ order.id }|}">
+			                    			Xem
+			                    	</a>
+			                    </td>
+			                </tr>
+			            </tbody>
+			        </table>
+				</div>
+		        
+			</div>
+		</div>
+	</div>
+</main>

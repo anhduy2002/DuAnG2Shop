@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout/layout::dynamic( ~{ ::title } , ~{ ::main } ) }">
+<title>Giới thiệu - G2SHOP</title>
+<main>
+  	<div class="container my-3 px-0">
+		<div class="row">
+			<div class="col-12">
+				<a href="/" class="v-a-3 mr-1 text-secondary v-font-size-small">
+	      			Trang chủ
+	      		</a>
+	      		/
+	      		<a href="/chinh-sach-va-dieu-khoan" class="v-a-3 mx-1 text-secondary v-font-size-small v-font-weight-6">
+	      			Chính sách và điều khoản
+	      		</a>
+			</div>
+		</div>
+	</div>
+	<div class="container my-4 px-0">
+		<div class="row">
+			<div class="col-12">
+				<h5 class="mb-3">ĐIỀU KHOẢN VÀ CHÍNH SÁCH CỦA G2SHOP</h5>
+				[(${ basicInformation.termsAndPolicies })]
+			</div>
+		</div>
+	</div>
+</main>
+</html>

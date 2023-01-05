@@ -1,0 +1,33 @@
+<div class="container-fluid v-bg px-0">
+	<div class="container">
+		<div class="row py-1 text-light">
+			<div class="col-lg-4 col-md-12 px-3">
+				<small>
+					Hotline: [[${#strings.substring(basicInformation.phone,0,4) + '.' + #strings.substring(basicInformation.phone,4,7) + '.' + #strings.substring(basicInformation.phone,7)}]]
+					<span class="mx-2" th:if="${basicInformation.phone2 != null && basicInformation.phone2 != ''}">|</span>
+					[[${basicInformation.phone2 != null || basicInformation.phone2 != '' ? #strings.substring(basicInformation.phone2,0,4) + '.' + #strings.substring(basicInformation.phone2,4,7) + '.' + #strings.substring(basicInformation.phone2,7) : ''}]]
+				</small>
+			</div>
+			<div class="col-lg-4 col-md-12 px-3">
+				<small class="d-none d-lg-inline-block v-font-weight-6 text-center w-100">
+					[[${basicInformation.title}]]
+				</small>
+				<small class="d-lg-none v-font-weight-6">
+					[[${basicInformation.title}]]
+				</small>
+			</div>
+			<div class="d-none d-lg-block col-4 text-right px-3">
+				<a href="/gioi-thieu" class="mx-1"><small class="v-font-weight-6 text-light">Giới thiệu</small></a>
+				<a href="/huong-dan" class="mx-1"><small class="v-font-weight-6 text-light">Hướng dẫn</small></a>
+				<a href="/tin-tuc" class="mx-1"><small class="v-font-weight-6 text-light">Tin tức</small></a>
+				<a href="/lien-he" class="mx-1"><small class="v-font-weight-6 text-light">Liên hệ</small></a>
+			</div>
+			<div class="d-lg-none col-12 px-3">
+				<a href="/gioi-thieu" class="ml-0 mr-1"><small class="v-font-weight-6 text-light">Giới thiệu</small></a>
+				<a href="/huong-dan" class="mx-1"><small class="v-font-weight-6 text-light">Hướng dẫn</small></a>
+				<a href="/tin-tuc" class="mx-1"><small class="v-font-weight-6 text-light">Tin tức</small></a>
+				<a href="/lien-he" class="mx-1"><small class="v-font-weight-6 text-light">Liên hệ</small></a>
+			</div>
+		</div>
+	</div>
+</div>

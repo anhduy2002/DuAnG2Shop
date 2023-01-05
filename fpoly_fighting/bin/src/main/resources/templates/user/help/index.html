@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout/layout::dynamic( ~{ ::title } , ~{ ::main } ) }">
+<title>Hướng dẫn xem sản phẩm - G2SHOP</title>
+<main>
+  	<div class="container my-3">
+		<div class="row">
+			<div class="col-12 px-3">
+				<a href="/" class="v-a-3 mr-1 text-secondary v-font-size-small">
+	      			Trang chủ
+	      		</a>
+	      		/
+	      		<a href="/huong-dan" class="v-a-3 mx-1 text-secondary v-font-size-small v-font-weight-6">
+	      			Hướng dẫn
+	      		</a>
+			</div>
+		</div>
+	</div>
+	<div class="container my-3">
+		<div class="row">
+			<div class="col-12 px-3">
+				<h5>Danh mục hướng dẫn dành cho khách hàng</h5>
+				<div class="list-group">
+					<a href="/huong-dan/xem-san-pham" type="button" class="rounded-0 list-group-item list-group-item-action v-cursor-pointer py-2 px-3 v-shadow-5 my-1" >
+						I. Hướng dẫn xem các danh mục sản phẩm, lọc, tìm kiếm, sắp xếp sản phẩm, xem chi tiết sản phẩm
+					</a>
+					<a href="/huong-dan/dang-nhap-va-dang-ky" type="button" class="rounded-0 list-group-item list-group-item-action v-cursor-pointer py-2 px-3 v-shadow-5 my-1" >
+						II. Hướng dẫn đăng nhập bằng tài khoản G2Shop, bằng Gmail và Facebook, đăng ký khách hàng và các chức năng liên quan
+					</a>
+					<a href="/huong-dan/dat-hang" type="button" class="rounded-0 list-group-item list-group-item-action v-cursor-pointer py-2 px-3 v-shadow-5 my-1" >
+						III. Thêm sản phẩm vào giỏ hàng, xem trước đơn hàng, đặt hàng, hủy đặt hàng
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+</html>

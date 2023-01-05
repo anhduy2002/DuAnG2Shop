@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout/layout::dynamic( ~{ ::title } , ~{ ::main } )}">
+<title>Đăng ký khách hàng - G2Shop</title>
+<main>
+	<div class="container my-3 px-3">
+	    <div class="row">
+	    	<div class="col-12">
+	      		<a href="/" class="v-a-3 mr-1 text-secondary v-font-size-small">Trang chủ</a> /
+	      		<a href="/dang-ky" class="v-a-3 mx-1 text-secondary v-font-size-small v-font-weight-6">Đăng ký</a>
+	      	</div>
+	    </div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-12 px-3">
+				<h6 class="v-font-weight-6 mb-3">Khách hàng mới</h6>
+				<p>
+				Bằng cách tạo tài khoản G2SHOP, bạn sẽ có thể đặt hàng, xem lịch sử đặt hàng và nhiều hơn thế.
+				</p>
+				<p>
+				Bạn vui lòng điền đầy đủ thông tin. Điều này sẽ giúp chúng tôi phục vụ bạn tốt hơn.
+				<ul class="p-0">
+                	<li><i class="fa-solid fa-check mr-2"></i><b class="text-danger">Tên đăng nhập</b> và <b class="text-danger">mật khẩu</b> phục vụ cho việc đăng nhập vào website để đặt hàng.</li>
+                	<li><i class="fa-solid fa-check mr-2"></i><b class="text-danger">Số điện thoại</b> giúp chúng tôi gọi xác nhận đơn đặt hàng của bạn, gọi cho bạn khi giao hàng và thực hiện các thông báo quan trọng khác.</li>
+                	<li><i class="fa-solid fa-check mr-2"></i><b class="text-danger">Email</b> giúp bạn có thể đăng nhập qua gmail. Nếu bạn cần đăng nhập bằng tài khoản của G2Shop mà quên mật khẩu, bạn có thể yêu cầu chúng tôi gửi link đặt lại mật khẩu qua email của bạn. Ngoài ra, chúng tôi cũng sẽ gửi các thông báo và đính kèm quan trọng khi bạn <b>cập nhật thông tin</b>, <b>đổi mật khẩu</b>, <b>đặt hàng</b>, <b>hủy đơn hàng</b> và <b>hoàn tất đơn hàng</b> thành công.</li>
+                	<li><i class="fa-solid fa-check mr-2"></i><b class="text-danger">Địa chỉ</b> phục vụ cho việc giao hàng.</li>
+                </ul>
+                <p>Bạn vui lòng đọc thêm <a href="/dieu-khoan-va-chinh-sach" class="v-text v-font-weight-6">Điều khoản và chính sách</a> của chúng tôi tại đây.</p>
+                Cảm ơn Quý khách hàng đã quan tâm và đăng ký!
+			</div>
+			<div class="col-lg-6 col-md-12 px-3">
+				<hr class="d-lg-none my-4">
+				<h6 class="v-font-weight-6">Thông tin Đăng ký Khách hàng</h6>
+				<form 
+					class="w-100" 
+					action="/dang-ky" 
+					method="post"
+					th:object="${newUser}"
+				>
+					<div class="my-3">
+						<div 
+							th:if="${ #fields.hasErrors( 'username' ) }" 
+							class="text-danger"  
+							th:errors="*{username}">
+						</div>
+						<label>
+							Tên đăng nhập ( 3 - 50 ký tự ): 
+							<span class="text-danger">*</span>
+						</label>
+						<br>
+						<input 
+							class="form-control w-100" 
+							required 
+							name="username"
+							th:field="*{username}"
+							>
+					</div>
+					<div class="my-3">
+						<div 
+							th:if="${ #fields.hasErrors( 'fullname' ) }" 
+							class="text-danger"  
+							th:errors="*{fullname}">
+						</div>
+						<label>
+							Họ và tên ( 3 - 50 ký tự ):
+							<span class="text-danger">*</span>
+						</label>
+						<br>
+						<input 
+							class="form-control w-100" 
+							required 
+							name="fullname"
+							th:field="*{fullname}"
+							>
+					</div>
+					<div class="my-3">
+						<div 
+							th:if="${ #fields.hasErrors( 'email' ) }" 
+							class="text-danger"  
+							th:errors="*{email}">
+						</div>
+						<label>
+							Email ( hợp lệ và < 51 ký tự ): 
+							<span class="text-danger">*</span>
+						</label>
+						<br>
+						<input 
+							class="form-control w-100" 
+							required 
+							name="email"
+							th:field="*{email}"
+							>
+					</div>
+					<div class="my-3">
+						<div 
+							th:if="${ #fields.hasErrors( 'phone' ) }" 
+							class="text-danger"  
+							th:errors="*{phone}">
+						</div>
+						<label>
+							Số điện thoại ( 9 - 11 ký tự ):
+							<span class="text-danger">*</span>
+						</label>
+						<br>
+						<input 
+							class="form-control w-100" 
+							required 
+							name="phone"
+							th:field="*{phone}"
+							>
+					</div>
+					<div class="my-3">
+						<div 
+							th:if="${ #fields.hasErrors( 'hashPassword' ) }" 
+							class="text-danger"  
+							th:errors="*{hashPassword}">
+						</div>
+						<label>
+							Mật khẩu ( > 2 ký tự ): 
+							<span class="text-danger">*</span>
+						</label>
+						<br>
+						<input 
+							class="form-control w-100" 
+							required 
+							name="hashPassword"
+							th:field="*{hashPassword}"
+							type="password"
+							>
+					</div>
+					<div class="my-3">
+						<label>
+							Nhập lại mật khẩu : 
+							<span class="text-danger">*</span>
+						</label>
+						<br>
+						<input 
+							class="form-control w-100" 
+							required 
+							name="confirmPassword"
+							type="password"
+							>
+					</div>
+					<div class="my-3">
+						<div 
+							th:if="${ #fields.hasErrors( 'address' ) }" 
+							class="text-danger"  
+							th:errors="*{address}">
+						</div>
+						<label>
+							Địa chỉ ( 5 - 250 ký tự ): 
+							<span class="text-danger">*</span>
+						</label>
+						<br>
+						<textarea 
+							class="form-control w-100" 
+							required 
+							name="address"
+							th:field="*{address}"
+							rows=3
+							>
+						</textarea>
+					</div>
+					<div class="mt-2">
+			        	<button type="submit" class="btn btn-info v-shadow-5">
+			        		<span>Xác nhận đăng ký</span>
+			        	</button>
+                	</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</main>
+</html>

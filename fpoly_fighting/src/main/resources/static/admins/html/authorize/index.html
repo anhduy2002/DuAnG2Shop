@@ -1,0 +1,28 @@
+<div class="p-4">
+	<h4 class="v-font-weight-3">PHÂN QUYỀN NHÂN VIÊN</h4>
+	<hr>
+	<table class="table table-hover table-bordered bg-white rounded mt-3 mb-0 v-shadow mb-0">
+         <thead class="thead-light">
+             <tr>
+                 <th class="text-center">Nhân viên\Vai trò</th>
+                 <th class="text-center" ng-repeat="role in roles">{{ role.name }}</th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr ng-repeat="staff in staffs" class="{{ staff.id == loggedInStaff.id ? 'bg-light' : '' }}">
+                 <td>
+                 	{{ "#" + staff.id + " - " + staff.fullname }}               
+                 </td>
+                 <td ng-repeat="role in roles" class="text-center">
+                 	<input type="radio" ng-model="staff.role.id" ng-value="role.id" ng-click="updateRole( staff , role.id )" ng-disabled="loggedInStaff.id == staff.id">
+                 </td>
+           	</tr>
+           	<tr>
+           		<td class="text-center v-font-weight-6">Tổng số lượng</td>
+           		<td ng-repeat="role in roles" class="v-font-weight-6 text-center">
+                 	{{ countResult[ role.id ] }}               
+                 </td>
+           	</tr>
+        </tbody>
+    </table>
+</div>

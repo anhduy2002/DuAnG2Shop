@@ -1,0 +1,85 @@
+<div class="p-4">
+	<h4 class="v-font-weight-3">CHỈNH SỬA THÔNG TIN</h4>
+	<hr>
+	<div class="my-2 px-2">
+		<label class="mb-2">Tiêu đề giới thiệu ở header:</label>
+		<input class="form-control" ng-model="form.title">
+	</div>
+	<div class="d-flex">
+		<div class="w-25 my-2 px-2">
+			<label class="mb-2">Số điện thoại:</label>
+			<input class="form-control" ng-model="form.phone">
+		</div>
+		<div class="w-25 my-2 px-2">
+			<label class="mb-2">Số điện thoại 2:</label>
+			<input class="form-control" ng-model="form.phone2">
+		</div>
+		<div class="w-50 my-2 px-2">
+			<label class="mb-2">Email:</label>
+			<input class="form-control" ng-model="form.email">
+		</div>
+	</div>
+	<div class="my-3 px-2">
+		<label class="mb-2">Địa chỉ văn phòng đại diện:</label>
+		<textarea class="form-control" ng-model="form.address" rows=3>
+		</textarea>
+	</div>
+	<div class="my-3 px-2">
+		<label class="mb-2">Mã nhúng địa chỉ ( mã HTML ) :</label>
+		<textarea class="form-control" ng-model="form.embedAddressCode" rows=4>
+		</textarea>
+	</div>
+	<div class="my-3 px-2">
+		<label class="mb-2">Danh sách id video Youtube hướng dẫn khách hàng ( Ngăn cách bằng dấu chấm phẩy ):</label>
+		<textarea class="form-control" ng-model="form.embedHelpYoutubeVideoIds" rows=3>
+		</textarea>
+	</div>
+	<div class="my-3 px-2">
+		<label class="mb-2 px-2">Nội dung:</label>
+		<nav class="nav nav-tabs bg-light" id="nav-tab-description" role="tabDescription">
+		    <button 
+		    	class="nav-link active" 
+		    	id="i-nav-description-code" 
+		    	data-bs-toggle="tab" 
+		    	data-bs-target="#nav-description-code" 
+		    	type="button" 
+		    	aria-selected="true">
+	    			Mã HTML
+	    	</button>
+			<button 
+		    	class="nav-link" 
+		    	id="i-nav-description-result" 
+		    	data-bs-toggle="tab" 
+		    	data-bs-target="#nav-description-result" 
+		    	type="button" 
+		    	aria-selected="true">
+		    		Kết quả hiển thị
+		    </button>
+		</nav>
+		<div class="tab-content p-3 mb-3 v-shadow" id="nav-tabContent-description">
+		  	<div 
+		  		class="tab-pane fade show active" 
+		  		id="nav-description-code" 
+		  		role="tabpanel" 
+		  		tabindex="0">
+		  			<textarea class="form-control" ng-model="form.termsAndPolicies" rows=15>
+					</textarea>
+		  	</div>
+		  	<div 
+		  		class="tab-pane fade" 
+		  		id="nav-description-result" 
+		  		role="tabpanel" 
+		  		tabindex="1">
+		  			<div class="my-2 v-shadow-5 p-4" ng-bind-html="form.termsAndPolicies" style="max-height:375px;overflow:auto">
+		  			</div>
+		  	</div>
+		 </div>
+	</div>
+	<hr>
+	<div>
+		<button class="btn btn-info v-shadow-5 mx-2" ng-click="update()">
+			<i class="fas fa-pen mr-1"></i>
+			Cập nhật
+		</button>
+	</div>
+</div>

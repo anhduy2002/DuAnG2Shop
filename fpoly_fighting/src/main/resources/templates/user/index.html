@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout/layout::dynamic( ~{ ::title } , ~{ ::main } )}">
+<title>Trang chủ - G2SHOP</title>
+<main>
+  	<div class="container my-0">
+		<div class="row">
+			<div class="col-lg-3 col-md-12 px-3">
+				<div class="list-group">
+					<a th:each="category:${categories}" th:href="@{|/san-pham/${category.slug}|}" class="rounded-0 list-group-item list-group-item-action v-cursor-pointer py-2 px-3 border-0 v-shadow-5" 
+						 th:attr="onclick=|goCategory('${category.slug}')|" >
+						<img class="mr-2" width="30px" th:src="@{|/images/categories/${category.imageName}|}">
+						 [[${category.name}]]
+					</a>
+				</div>
+			</div>
+			<div class="col-lg-9 col-md-12 px-0 my-3">
+				<div id="slide" class="carousel slide v-shadow-4" data-ride="carousel">
+				  	<div class="carousel-inner m-0">
+				    	<div th:each="news , iStat : ${ newsList }" th:class="'carousel-item' + ${iStat.index==0?' active':''}">
+				    		<a th:href="@{|/tin-tuc/${ news.id }|}" class="d-block w-100">
+				    			<img class="d-block w-100" th:src="@{|/images/news/${ news.imageName }|}" alt="First slide">
+				    		</a>
+				    	</div>
+				  	</div>
+				  	<a class="carousel-control-prev" href="#slide" role="button" data-slide="prev">
+				    	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    	<span class="sr-only">Previous</span>
+				  	</a>
+				  	<a class="carousel-control-next" href="#slide" role="button" data-slide="next">
+				    	<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    	<span class="sr-only">Next</span>
+				  	</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container my-4">
+		<div class="row">
+			<div class="col-12 px-3 mb-1">
+				<h4 class="v-text v-font-weight-6">TOP GIẢM GIÁ</h4>
+				<hr class="pt-1 pb-0 bg-secondary ml-0 my-0 opacity-4" style="max-width:75px">
+			</div>
+			<div id="slide-2" class="d-none d-lg-block carousel slide w-100" data-ride="carousel">
+			  	<div class="carousel-inner m-0">
+			    	<div th:each="mlist , iStat : ${ bestDiscountProductList }" th:class="'carousel-item' + ${iStat.index==0?' active':''}">
+			    		<div class="row px-5 py-4">
+			    			<div th:each="product : ${ mlist }" class="col-3 p-1">
+								<th:block th:include="/user/layout/product-box"></th:block>
+							</div>	
+			    		</div>
+			    	</div>
+			  	</div>
+			  	<a class="carousel-control-prev v-zoom-2" href="#slide-2" role="button" data-slide="prev" style="width:auto">
+			    	<h4 class="p-2 fa-solid fa-chevron-left text-secondary" aria-hidden="true"></h4>
+			  	</a>
+			  	<a class="carousel-control-next v-zoom-2" href="#slide-2" role="button" data-slide="next" style="width:auto">
+			    	<h4 class="p-2 fa-solid fa-chevron-right text-secondary" aria-hidden="true"></h4>
+			  	</a>
+			</div>
+		</div>
+		<div class="row d-lg-none">
+   			<div th:each="product : ${ bestDiscountProductList[ 0 ] }" class="col-6 px-1 my-2">
+				<th:block th:include="/user/layout/product-box"></th:block>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 text-right px-5">
+				<a href="/san-pham?is-filter-new=true&is-sort-enabled=true&sort-by=discount&sort-dir=0" class="v-text">Xem thêm...</a>
+			</div>
+		</div>
+	</div>
+	<div class="container my-4">
+		<div class="row">
+			<div class="col-12 px-3 mb-1">
+				<h4 class="v-text v-font-weight-6">TOP MUA NHIỀU</h4>
+				<hr class="pt-1 pb-0 bg-secondary ml-0 my-0 opacity-4" style="max-width:75px">
+			</div>
+			<div id="slide-3" class="d-none d-lg-block carousel slide w-100" data-ride="carousel">
+			  	<div class="carousel-inner m-0">
+			    	<div th:each="mlist , iStat : ${ bestSaleProductList }" th:class="'carousel-item' + ${iStat.index==0?' active':''}">
+			    		<div class="row px-5 py-4">
+			    			<div th:each="product : ${ mlist }" class="col-3 p-1">
+								<th:block th:include="/user/layout/product-box"></th:block>
+							</div>	
+			    		</div>
+			    	</div>
+			  	</div>
+			  	<a class="carousel-control-prev v-zoom-2" href="#slide-3" role="button" data-slide="prev" style="width:auto">
+			    	<h4 class="p-2 fa-solid fa-chevron-left text-secondary" aria-hidden="true"></h4>
+			  	</a>
+			  	<a class="carousel-control-next v-zoom-2" href="#slide-3" role="button" data-slide="next" style="width:auto">
+			    	<h4 class="p-2 fa-solid fa-chevron-right text-secondary" aria-hidden="true"></h4>
+			  	</a>
+			</div>
+		</div>
+		<div class="row d-lg-none">
+   			<div th:each="product : ${ bestSaleProductList[ 0 ] }" class="col-6 px-1 my-2">
+				<th:block th:include="/user/layout/product-box"></th:block>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 text-right px-5">
+				<a href="/san-pham?is-filter-new=true&is-sort-enabled=true&sort-by=saleCount&sort-dir=0" class="v-text">Xem thêm...</a>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid bg-light my-4">
+		<div class="container">
+			<div class="row px-3 py-5">
+				<div class="col-12 px-2 mb-2">
+					<h4 class="text-danger v-font-weight-6">TOP THƯƠNG HIỆU SẢN PHẨM MUA NHIỀU</h4>
+					<hr class="pt-1 pb-0 bg-secondary ml-0 my-0 opacity-4" style="max-width:150px">
+				</div>
+				<a th:each="brand:${topBestSaledProductBrandList}" class="d-none d-lg-inline-block col-2 p-2" th:href="@{|/san-pham?is-filter-new=1&brands=${ brand.id }|}">
+					<img th:src="@{|/images/brands/${brand.imageName}|}" class="w-100 v-shadow-5">
+				</a>
+				<a th:each="brand:${topBestSaledProductBrandList}" class="d-lg-none col-4 p-1" th:href="@{|/san-pham?is-filter-new=1&brands=${ brand.id }|}">
+					<img th:src="@{|/images/brands/${brand.imageName}|}" class="w-100 v-shadow-5">
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="container my-4">
+		<div class="row">
+			<div class="col-12 px-3 mb-1">
+				<h4 class="v-text v-font-weight-6">TOP YÊU THÍCH</h4>
+				<hr class="pt-1 pb-0 bg-secondary ml-0 my-0 opacity-4" style="max-width:75px">
+			</div>
+			<div id="slide-4" class="d-none d-lg-block carousel slide w-100" data-ride="carousel">
+			  	<div class="carousel-inner m-0">
+			    	<div th:each="mlist , iStat : ${ bestFavoriteProductList }" th:class="'carousel-item' + ${iStat.index==0?' active':''}">
+			    		<div class="row px-5 py-4">
+			    			<div th:each="product : ${ mlist }" class="col-3 p-1">
+								<th:block th:include="/user/layout/product-box"></th:block>
+							</div>	
+			    		</div>
+			    	</div>
+			  	</div>
+		  		<a class="carousel-control-prev v-zoom-2" href="#slide-4" role="button" data-slide="prev" style="width:auto">
+			    	<h4 class="p-2 fa-solid fa-chevron-left text-secondary" aria-hidden="true"></h4>
+			  	</a>
+			  	<a class="carousel-control-next v-zoom-2" href="#slide-4" role="button" data-slide="next" style="width:auto">
+			    	<h4 class="p-2 fa-solid fa-chevron-right text-secondary" aria-hidden="true"></h4>
+			  	</a>
+			</div>
+		</div>
+		<div class="row d-lg-none">
+   			<div th:each="product : ${ bestFavoriteProductList[ 0 ] }" class="col-6 px-1 my-2">
+				<th:block th:include="/user/layout/product-box"></th:block>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 text-right px-5">
+				<a href="/san-pham?is-filter-new=true&is-sort-enabled=true&sort-by=likesCount&sort-dir=0" class="v-text">Xem thêm...</a>
+			</div>
+		</div>
+	</div>
+	<div class="container my-4">
+		<div class="row">
+			<div class="col-12 px-3 mb-1">
+				<h4 class="v-text v-font-weight-6">TOP XEM NHIỀU</h4>
+				<hr class="pt-1 pb-0 bg-secondary ml-0 my-0 opacity-4" style="max-width:75px">
+			</div>
+			<div id="slide-5" class="d-none d-lg-block carousel slide w-100" data-ride="carousel">
+			  	<div class="carousel-inner m-0">
+			    	<div th:each="mlist , iStat : ${ bestViewCountProductList }" th:class="'carousel-item' + ${iStat.index==0?' active':''}">
+			    		<div class="row px-5 py-4">
+			    			<div th:each="product : ${ mlist }" class="col-3 p-1">
+								<th:block th:include="/user/layout/product-box"></th:block>
+							</div>	
+			    		</div>
+			    	</div>
+			  	</div>
+		  		<a class="carousel-control-prev v-zoom-2" href="#slide-5" role="button" data-slide="prev" style="width:auto">
+			    	<h4 class="p-2 fa-solid fa-chevron-left text-secondary" aria-hidden="true"></h4>
+			  	</a>
+			  	<a class="carousel-control-next v-zoom-2" href="#slide-5" role="button" data-slide="next" style="width:auto">
+			    	<h4 class="p-2 fa-solid fa-chevron-right text-secondary" aria-hidden="true"></h4>
+			  	</a>
+			</div>
+		</div>
+		<div class="row d-lg-none">
+   			<div th:each="product : ${ bestViewCountProductList[ 0 ] }" class="col-6 px-1 my-2">
+				<th:block th:include="/user/layout/product-box"></th:block>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 text-right px-5">
+				<a href="/san-pham?is-filter-new=true&is-sort-enabled=true&sort-by=viewCount&sort-dir=0" class="v-text">Xem thêm...</a>
+			</div>
+		</div>
+	</div>
+</main>
+</html>

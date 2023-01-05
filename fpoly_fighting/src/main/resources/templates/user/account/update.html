@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout/layout::dynamic( ~{ ::title } , ~{ ::main } )}">
+<title>Cập nhật thông tin - Người dùng - G2SHOP</title>
+<main>
+	<div class="container my-3">
+	    <div class="row">
+	    	<div class="col-12 px-3">
+	      		<a href="/" class="v-a-3 mr-1 text-secondary v-font-size-small">Trang chủ</a> /
+	      		<a href="/nguoi-dung/cap-nhat-tai-khoan" class="v-a-3 mx-1 text-secondary v-font-size-small v-font-weight-6">Thông tin người dùng</a>
+	      	</div>
+	    </div>
+	</div>
+	<div class="container my-3">
+		<div class="row">
+			<div class="col-12 p-0 text-center px-3">
+				<form 
+					class="p-4 v-shadow w-100 d-inline-block text-left" 
+					action="/nguoi-dung/cap-nhat-tai-khoan" 
+					method="post"
+					style="max-width: 700px"
+					th:object="${USER}"
+				>
+					<h3>Cập nhật thông tin</h3>
+					<input 
+						name="id"
+						th:field="*{id}"
+						type="hidden"
+					>
+					<input 
+						name="hassPassword"
+						th:field="*{hashPassword}"
+						type="hidden"
+					>
+					<div class="my-3">
+						<div 
+							th:if="${#fields.hasErrors('username')}" 
+							class="text-danger"  
+							th:errors="*{username}">
+						</div>
+						<label>
+							Tên đăng nhập ( 3 - 50 ký tự ): 
+							<span class="text-danger">*</span>
+						</label>
+						<br>
+						<input 
+							class="form-control w-100" 
+							required 
+							name="username"
+							th:field="*{username}"
+							>
+					</div>
+					<div class="my-3">
+						<div 
+							th:if="${#fields.hasErrors('fullname')}" 
+							class="text-danger"  
+							th:errors="*{fullname}">
+						</div>
+						<label>
+							Họ và tên ( 3 - 50 ký tự ):
+							<span class="text-danger">*</span>
+						</label>
+						<br>
+						<input 
+							class="form-control w-100" 
+							required 
+							name="fullname"
+							th:field="*{fullname}"
+							>
+					</div>
+					<div class="my-3">
+						<div 
+							th:if="${#fields.hasErrors('email')}" 
+							class="text-danger"  
+							th:errors="*{email}">
+						</div>
+						<label>
+							Email ( hợp lệ và < 50 ký tự ): 
+							<span class="text-danger">*</span>
+						</label>
+						<br>
+						<input 
+							class="form-control w-100" 
+							required 
+							name="email"
+							th:field="*{email}"
+							>
+					</div>
+					<div class="my-3">
+						<div 
+							th:if="${#fields.hasErrors('phone')}" 
+							class="text-danger"  
+							th:errors="*{phone}">
+						</div>
+						<label>
+							Số điện thoại ( 9 - 12 ký tự ):
+							<span class="text-danger">*</span>
+						</label>
+						<br>
+						<input 
+							class="form-control w-100" 
+							required 
+							name="phone"
+							th:field="*{phone}"
+							>
+					</div>
+					<div class="my-3">
+						<div 
+							th:if="${#fields.hasErrors('address')}" 
+							class="text-danger"  
+							th:errors="*{address}">
+						</div>
+						<label>
+							Địa chỉ ( 5 - 255 ký tự ): 
+							<span class="text-danger">*</span>
+						</label>
+						<br>
+						<textarea 
+							class="form-control w-100" 
+							required 
+							name="address"
+							th:field="*{address}"
+							rows=3
+							>
+						</textarea>
+					</div>
+					<button type="submit" class="btn btn-success mt-2">Cập nhật tài khoản</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</main>

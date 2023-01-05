@@ -1,0 +1,67 @@
+<div>
+	<h4 class="v-font-weight-3">DANH SÁCH KHÁCH HÀNG</h4>
+	<hr>
+	<div class="row">
+		<div class="col-6">
+			<input class="form-control w-100" placeholder="Tìm kiếm ..." ng-model="search">
+		</div>
+		<div class="col-6 text-right">
+			<button class="btn btn-light" ng-click="pager.first()">
+				<i class="fas fa-angle-double-left"></i>
+			</button>
+			<button class="btn btn-light m-1 mr-4" ng-click="pager.prev()">
+				<i class="fas fa-angle-left"></i>
+			</button>
+			Trang: 
+			<input class="form-control d-inline-block" ng-model="pager.page" style="max-width:85px" type="number"> 
+			/ {{pager.count}}
+			<button class="btn btn-light m-1 ml-4" ng-click="pager.next()">
+				<i class="fas fa-angle-right"></i>
+			</button>
+			<button class="btn btn-light" ng-click="pager.last()">
+				<i class="fas fa-angle-double-right"></i>
+			</button>
+		</div>
+	</div>
+	<table class="table table-hover table-bordered bg-white rounded mt-3 mb-0 v-shadow mb-4">
+         <thead class="thead-light">
+             <tr>
+                 <th class="text-center">#</th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'id' )">Mã KH</a></th>
+                 <th><a href="" class="text-info" ng-click="sortBy( 'username' )">Tên đăng nhập</a></th>
+                 <th><a href="" class="text-info" ng-click="sortBy( 'name' )">Họ và tên</a></th>
+                 <th>Email</th>
+                 <th class="text-center">SĐT</th>
+                 <th class="text-center" ng-click="sortBy( 'createdDate' )">Ngày tạo</th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'isEnabled' )">Kích hoạt</a></th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'isDeleted' )">Xóa</a></th>
+                 <th class="text-center">Sửa</th>
+         	</tr>
+         </thead>
+         <tbody>
+             <tr ng-repeat="( index , item ) in items | orderBy:propertyName:reverse | filter: search" 
+             	ng-if="pager.isInCurrentPage( index )">
+                 <td class="text-right">{{ index + 1 }}</td>
+                 <td class="text-right">{{ item.id }}</td>
+                 <td>{{ item.username }}</td>
+                 <td>{{ item.fullname }}</td>
+                 <td>{{ item.email }}</td>
+                 <td class="text-center">{{ item.phone }}</td>
+                 <td class="text-center">{{ item.createdDate | date:'dd-MM-yyyy'}}</td>
+                 <td class="text-center" ng-if="item.isEnabled"><i class="fa-solid fa-check text-success"></i></td>
+                 <td class="text-center" ng-if="!item.isEnabled"></td>
+                 <td class="text-center" ng-if="item.isDeleted"><i class="fa-solid fa-xmark text-danger"></i></td>
+                 <td class="text-center" ng-if="!item.isDeleted"></td>
+	             <td class="p-2 text-center">
+	               	<button class="btn btn-info v-warning py-0 px-1 m-0 v-shadow" ng-click="edit( item )">
+	               		<small class="fas fa-pen mr"></small>
+	               	</button>
+	             </td>
+           	</tr>
+        </tbody>
+    </table>
+    <div>
+		Số phần tử: <b>{{ items.length }}</b>
+	</div>
+  
+</div>

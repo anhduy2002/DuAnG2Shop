@@ -1,0 +1,282 @@
+<h4 class="v-font-weight-3">CHỈNH SỬA SẢN PHẨM</h4>
+<hr>
+<div class="d-flex">
+	<div class="w-50">
+		<div class="my-3 px-2">
+			<label class="mb-2">Mã sản phẩm:</label>
+			<input class="form-control" ng-model="form.id" type="number" min="1" disabled>
+		</div>
+		<div class="my-3 d-flex">
+			<div class="px-2 w-50">
+				<label>Thương hiệu: </label>
+				<select class="form-control" ng-model="form.brand.id" ng-options="brand.id as brand.name for brand in brands">
+				</select>
+			</div>
+			<div class="px-2 w-50">
+				<label>Loại sản phẩm: </label>
+				<select class="form-control" ng-model="form.category.id" ng-options="category.id as category.name for category in categories">
+				</select>
+			</div>
+		</div>
+		
+		<div class="my-3 px-2">
+			<label class="mb-2">Tên sản phẩm:</label>
+			<input class="form-control" ng-model="form.name">
+		</div>
+		<div class="my-3 px-2">
+			<label class="mb-2">Slug:</label>
+			<input class="form-control" ng-model="form.slug">
+		</div>
+		<div class="my-3 d-flex">
+			<div class="px-2 w-25">
+				<label class="mb-2">Số lượng tồn:</label>
+				<input class="form-control" ng-model="form.quantity" type="number" min="1">
+			</div>
+			<div class="px-2 w-25">
+				<label class="mb-2">Giảm giá:</label>
+				<input class="form-control" ng-model="form.discount" type="number" min="0" max="99">
+			</div>
+			<div class="px-2 w-50">
+				<label class="mb-2">Giá sản phẩm:</label>
+				<input class="form-control" ng-model="form.price" type="number" min="0" step="1000">
+			</div>
+		</div>
+		<div class="my-3 px-2 text-danger">
+			<div class="mb-2">Đơn Giá bán:</div>
+			<h3 class="v-font-weight-6">{{ form.price * ( 100 - form.discount ) / 100  | currency : "" : 0 }} <u class="v-font-weight-5">đ</u></h3>
+			
+		</div>
+		
+	</div>
+	<div ng-if="!form.id" class="w-50 p-5">
+		<h4 class="font-italic text-center">
+			Chọn 1 sản phẩm từ danh sách để cập nhật hình cho sản phẩm!
+		</h4>
+	</div>
+	<div ng-if="form.id" class="w-50 px-5">
+		<label class="mb-2">Hình sản phẩm:</label>
+		<nav class="nav nav-tabs bg-light" id="nav-tab-image" role="tablistimage">
+		    <button 
+		    	class="nav-link active" 
+		    	id="i-nav-tab-image-main" 
+		    	data-bs-toggle="tab" 
+		    	data-bs-target="#nav-image-main" 
+		    	type="button" 
+		    	aria-selected="true">
+	    			Chính
+	    	</button>
+			<button 
+		    	class="nav-link" 
+		    	id="i-nav-tab-image-1" 
+		    	data-bs-toggle="tab" 
+		    	data-bs-target="#nav-image-1" 
+		    	type="button" 
+		    	aria-selected="true">
+		    		+1
+		    </button>
+		    <button 
+		    	class="nav-link" 
+		    	id="i-nav-tab-image-2" 
+		    	data-bs-toggle="tab" 
+		    	data-bs-target="#nav-image-2" 
+		    	type="button" 
+		    	aria-selected="true">
+		    		+2
+		    </button>
+		    <button 
+		    	class="nav-link" 
+		    	id="i-nav-tab-image-3" 
+		    	data-bs-toggle="tab" 
+		    	data-bs-target="#nav-image-3" 
+		    	type="button" 
+		    	aria-selected="true">
+		    		+3
+		    </button>
+		    <button 
+		    	class="nav-link" 
+		    	id="i-nav-tab-image-4" 
+		    	data-bs-toggle="tab" 
+		    	data-bs-target="#nav-image-4" 
+		    	type="button" 
+		    	aria-selected="true">
+		    		+4
+		    </button>
+		    <button 
+		    	class="nav-link" 
+		    	id="i-nav-tab-image-5" 
+		    	data-bs-toggle="tab" 
+		    	data-bs-target="#nav-image-5" 
+		    	type="button" 
+		    	aria-selected="true">
+		    		+5
+		    </button>
+		</nav>
+		<div class="tab-content py-2 px-5 v-shadow" id="nav-tabContent-image">
+		  	<div 
+		  		class="tab-pane fade show active" 
+		  		id="nav-image-main" 
+		  		role="tabpanel" 
+		  		tabindex="0">
+		  			<label for="image" class="border border-secondary v-shadow-5 w-100">
+						<img ng-if="!form.imageName" src="/images/upload.png" width="100%">
+						<img ng-if="form.imageName" ng-src="{{ '/images/products/' + form.id + '/' + form.imageName }}"  width="100%">
+					</label>
+					<input 
+						class="form-control my-2" 
+						ng-model="form.imageName" 
+						type="file" 
+						id="image" 
+						onchange="angular.element( this ).scope().imageChanged( this.files )"
+					>
+		  	</div>
+			<div 
+		  		class="tab-pane fade" 
+		  		id="nav-image-1" 
+		  		role="tabpanel" 
+		  		tabindex="1">
+		  			<label for="image1" class="border border-secondary v-shadow-5 w-100">
+						<img ng-if="!form.image1Name" src="/images/upload.png" class="w-100">
+						<img ng-if="form.image1Name" ng-src="{{ '/images/products/' + form.id + '/' + form.image1Name }}" class="w-100">
+					</label>
+					<input 
+						class="form-control my-2" 
+						ng-model="form.image1Name" 
+						type="file" 
+						id="image1" 
+						onchange="angular.element( this ).scope().imageChanged( this.files , 1 )"
+					>
+		  	</div>
+		  	<div 
+		  		class="tab-pane fade" 
+		  		id="nav-image-2" 
+		  		role="tabpanel" 
+		  		tabindex="2">
+		  			<label for="image2" class="border border-secondary v-shadow-5 w-100">
+						<img ng-if="!form.image2Name" src="/images/upload.png"  width="100%">
+						<img ng-if="form.image2Name" ng-src="{{ '/images/products/' + form.id + '/' + form.image2Name }}" class="w-100">
+					</label>
+					<input 
+						class="form-control my-2" 
+						ng-model="form.image2Name" 
+						type="file" 
+						id="image2" 
+						onchange="angular.element( this ).scope().imageChanged( this.files , 2 )"
+					>
+		  	</div>
+		  	<div 
+		  		class="tab-pane fade" 
+		  		id="nav-image-3" 
+		  		role="tabpanel" 
+		  		tabindex="3">
+		  			<label for="image3" class="border border-secondary v-shadow-5 w-100">
+						<img ng-if="!form.image3Name" src="/images/upload.png"  width="100%">
+						<img ng-if="form.image3Name" ng-src="{{ '/images/products/' + form.id + '/' + form.image3Name }}" class="w-100">
+					</label>
+					<input 
+						class="form-control my-2" 
+						ng-model="form.image3Name" 
+						type="file" 
+						id="image3" 
+						onchange="angular.element( this ).scope().imageChanged( this.files , 3 )"
+					>
+		  	</div>
+		  	<div 
+		  		class="tab-pane fade" 
+		  		id="nav-image-4" 
+		  		role="tabpanel" 
+		  		tabindex="4">
+		  			<label for="image4" class="border border-secondary v-shadow-5 w-100">
+						<img ng-if="!form.image4Name" src="/images/upload.png"  width="100%">
+						<img ng-if="form.image4Name" ng-src="{{ '/images/products/' + form.id + '/' + form.image4Name }}" class="w-100">
+					</label>
+					<input 
+						class="form-control my-2" 
+						ng-model="form.image4Name" 
+						type="file" 
+						id="image4" 
+						onchange="angular.element( this ).scope().imageChanged( this.files , 4 )"
+					>
+		  	</div>
+		  	<div 
+		  		class="tab-pane fade" 
+		  		id="nav-image-5" 
+		  		role="tabpanel" 
+		  		tabindex="5">
+		  			<label for="image5" class="border border-secondary v-shadow-5 w-100">
+						<img ng-if="!form.image5Name" src="/images/upload.png" class="w-100">
+						<img ng-if="form.image5Name" ng-src="{{ '/images/products/' + form.id + '/' + form.image5Name }}" class="w-100">
+					</label>
+					<input 
+						class="form-control my-2" 
+						ng-model="form.image1Name" 
+						type="file" 
+						id="image5" 
+						onchange="angular.element( this ).scope().imageChanged( this.files , 5 )"
+					>
+		  	</div>
+		</div>
+	</div>
+</div>
+<div class="my-3">
+	<label class="mb-2 px-2">Thông tin chi tiết:</label>
+	<nav class="nav nav-tabs bg-light" id="nav-tab-description" role="tabDescription">
+	    <button 
+	    	class="nav-link active" 
+	    	id="i-nav-description-code" 
+	    	data-bs-toggle="tab" 
+	    	data-bs-target="#nav-description-code" 
+	    	type="button" 
+	    	aria-selected="true">
+    			Mã HTML
+    	</button>
+		<button 
+	    	class="nav-link" 
+	    	id="i-nav-description-result" 
+	    	data-bs-toggle="tab" 
+	    	data-bs-target="#nav-description-result" 
+	    	type="button" 
+	    	aria-selected="true">
+	    		Kết quả hiển thị
+	    </button>
+	</nav>
+	<div class="tab-content p-3 mb-3 v-shadow" id="nav-tabContent-description">
+	  	<div 
+	  		class="tab-pane fade show active" 
+	  		id="nav-description-code" 
+	  		role="tabpanel" 
+	  		tabindex="0">
+	  			<textarea class="form-control" ng-model="form.description" rows=15>
+				</textarea>
+	  	</div>
+	  	<div 
+	  		class="tab-pane fade" 
+	  		id="nav-description-result" 
+	  		role="tabpanel" 
+	  		tabindex="0">
+	  			<div class="my-2 v-shadow-5 p-4" ng-bind-html="form.description" style="max-height:400px;overflow:auto">
+	  	</div>	
+	</div>
+</div>
+<div ng-if="loggedInStaff.role.id == 2">
+	<div class="w-100 my-2 px-2 text-right">
+		<input id="input-isDeleted" ng-model="form.isDeleted" type="checkbox">
+		<label for="input-isDeleted" class="text-danger ml-1 v-cursor-pointer">Xóa sản phẩm</label>
+	</div>
+	<hr>
+	<button class="btn btn-success v-shadow-5 mx-2" ng-click="create()">
+		<i class="fas fa-plus mr-1"></i>
+		Thêm mới
+	</button>
+	<button class="btn btn-info v-shadow-5 mx-2" ng-click="update()">
+		<i class="fas fa-pen mr-1"></i>
+		Cập nhật
+	</button>
+	<button class="btn btn-light v-shadow-5 mx-2" ng-click="reset()">
+		<i class="fas fa-ban mr-1"></i>
+		Làm mới
+	</button>
+	<button class="btn btn-danger v-shadow-5 mx-2 float-right" ng-click="delete()">
+		<i class="fas fa-trash mr-1"></i>
+		Xóa
+	</button>
+</div>

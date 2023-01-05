@@ -1,0 +1,21 @@
+<div class="row">
+	<nav class="col-12 navbar navbar-expand-lg py-1 px-0">
+		
+		<div class="collapse navbar-collapse py-0" id="navbarText">
+			<ul class="navbar-nav py-0">
+				<div class="d-lg-none py-1"></div>
+				<li class="nav-item">
+					<a href="/san-pham" class="nav-link v-font-size-small text-white px-3">
+						<i class="d-none d-lg-inline fa-solid fa-bars mr-1"></i>
+						Danh mục Sản phẩm
+					</a>
+				</li>
+				<li class="nav-item" th:each="category : ${ categories }">
+					<a th:href="@{|/san-pham/${ category.slug }|}" class="nav-link v-font-size-small text-white px-3">
+						[[${ category.name }]]
+					</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</div>

@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout/layout::dynamic( ~{ ::title } , ~{ ::main } ) }">
+<title>Giới thiệu - G2SHOP</title>
+<main>
+  	<div class="container my-3">
+		<div class="row">
+			<div class="col-12 px-3">
+				<a href="/" class="v-a-3 mr-1 text-secondary v-font-size-small">
+	      			Trang chủ
+	      		</a>
+	      		/
+	      		<a href="/gioi-thieu" class="v-a-3 mx-1 text-secondary v-font-size-small v-font-weight-6">
+	      			Giới thiệu
+	      		</a>
+			</div>
+		</div>
+	</div>
+	<div class="container my-4">
+		<div class="row">
+			<div class="col-12 px-3">
+				<h5>
+					<b>Công ty TNHH MTV G2</b> là một công ty startup ở lĩnh vực buôn bán đồ dùng, thiết bị điện máy - điện tử gia dụng được thành lập và đi vào hoạt động từ giữa năm 2022.
+				</h5>
+				<div class="py-3">
+					<h5 class="mb-3">Hiện nay, <b>G2</b> đã thành lập <b>G2Shop</b> - Một cửa hàng trực tuyến chuyên bày bán những sản phẩm:</h5>
+					<div class="d-none d-lg-block">
+						<ul class="row p-0">
+							<li th:each="category:${categories}" class="col-2 px-5 py-3 text-center v-zoom">
+								<img th:src="@{|/images/categories/${category.imageName}|}" class="mb-2" style="width: 100%;">
+								<a th:href="@{|/san-pham/${category.slug}|}" class="v-text" 
+									 th:attr="onclick=|goCategory('${category.slug}')|" >
+									 [[${category.name}]]
+								</a>
+				        	</li>
+						</ul>
+					</div>
+					<div class="d-lg-none">
+						<ul class="row p-0">
+							<li th:each="category:${categories}" class="col-4 p-3 text-center v-zoom">
+								<img th:src="@{|/images/categories/${category.imageName}|}" class="mb-2" style="width: 100%;">
+								<a th:href="@{|/san-pham/${category.slug}|}" class="v-text" 
+									 th:attr="onclick=|goCategory('${category.slug}')|" >
+									 [[${category.name}]]
+								</a>
+				        	</li>
+						</ul>
+					</div>
+				</div>
+				<div class="py-3">
+					<h5 class="mb-3 text-center">Thuộc những thương hiệu:</h5>
+					<div class="d-none d-lg-block">
+						<ul class="row p-0">
+							<li th:each="brand:${brands}" class="col-2 p-4 text-center v-zoom">
+								<th:block th:if="${ brand.imageName }">
+									<img th:if="${ brand.imageName }" th:src="@{|/images/brands/${ brand.imageName }|}" class="mb-2" style="width: 100%;">
+									<a th:href="@{|/san-pham?is-filter-new=1&brands=${ brand.id }|}" class="v-text" >
+										 [[${ brand.name }]]
+									</a>
+								</th:block>
+								<div th:unless="${ brand.imageName }" class="py-5">
+									 <a th:href="@{|/san-pham?is-filter-new=1&brands=${ brand.id }|}" class="v-text" >
+										 [[${ brand.name }]]
+									</a>
+								</div>
+				        	</li>
+						</ul>
+					</div>
+					<div class="d-lg-none">
+						<ul class="row p-0">
+							<li th:each="brand:${brands}" class="col-4 p-3 text-center v-zoom">
+								<th:block th:if="${ brand.imageName }">
+									<img th:if="${ brand.imageName }" th:src="@{|/images/brands/${ brand.imageName }|}" class="mb-2" style="width: 100%;">
+									<a th:href="@{|/san-pham?is-filter-new=1&brands=${ brand.id }|}" class="v-text" >
+										 [[${ brand.name }]]
+									</a>
+								</th:block>
+								<div th:unless="${ brand.imageName }" class="py-5">
+									 <a th:href="@{|/san-pham?is-filter-new=1&brands=${ brand.id }|}" class="v-text" >
+										 [[${ brand.name }]]
+									</a>
+								</div>
+				        	</li>
+						</ul>
+					</div>
+				</div>
+				<h5 class="text-center font-italic">
+					<hr class="w-25 v-bg-2 mx-auto pt-1">
+					<br>
+					Với nguồn lực tốt và uy tín hiện tại, cửa hàng bán đồ điện máy - điện tử gia dụng trực tuyến <b>G2Shop</b> sẽ luôn nỗ lực mang đến cho khách hàng những sản phẩm tốt nhất.
+				</h5>
+			</div>
+		</div>
+	</div>
+</main>
+</html>

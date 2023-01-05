@@ -1,0 +1,51 @@
+<div>
+	<h4 class="v-font-weight-3">ĐƠN BẠN ĐANG GIAO</h4>
+	<hr>
+	<table class="table table-hover table-bordered bg-white rounded mt-3 mb-0 v-shadow mb-4">
+         <thead class="thead-light">
+             <tr>
+                 <th class="text-center">#</th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'id' )">Số ĐH</a></th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'customer.id' )">Khách hàng</a></th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'createdDate' )">Ngày đặt hàng</a></th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'orderStatus.id' )">Trạng thái</a></th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'confirmingStaff.id' )">NV Xác nhận</a></th>  
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'shippingStaff.id' )">NV Giao hàng</a></th>  
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'orderStatus.received' )">Ngày nhận hàng</a></th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'shippingFee' )">Phí ship</a></th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'orderStatus.totalCost' )">Giá trị đơn hàng</a></th>
+                 <th class="text-center">Sửa</th>
+             </tr>
+         </thead>
+         <tbody>
+         	<tr ng-repeat="( index , item ) in itemsForShippingStaff | orderBy:propertyName:!reverse"
+             	ng-if="pager.isInCurrentPage( index )" >
+                 <td class="text-right">{{ index + 1 }}</td>
+                 <td class="text-right">{{ item.id }}</td>
+                 <td>{{ "#" + item.customer.id + " - " + item.customer.fullname }}</td>
+                 <td class="text-center">{{ item.createdDate | date:'dd-MM-yyyy - HH:mm:ss'}}</td>
+                 <td class="text-center">{{ item.orderStatus.name }}</td>
+                 <td class="text-center" ng-if="item.confirmingStaff">{{ '#' + item.confirmingStaff.id + ' - ' + item.confirmingStaff.fullname }}</td>
+                 <td ng-if="!item.confirmingStaff"></td>
+                 <td class="text-center" ng-if="item.shippingStaff">{{ '#' + item.shippingStaff.id + ' - ' + item.shippingStaff.fullname }}</td>
+                 <td ng-if="!item.shippingStaff"></td>
+                 <td class="text-center">{{ item.receivedDate | date:'dd-MM-yyyy - HH:mm:ss'}}</td>
+                 <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.shippingFee | currency : "" : 0 }}<u class="v-font-weight-5">đ</u>
+			     </td>
+                 <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.totalCost | currency : "" : 0 }}<u class="v-font-weight-5">đ</u>
+			     </td>
+	             <td class="p-2 text-center">
+	               	<button class="btn btn-info v-warning py-0 px-1 m-0 v-shadow" ng-click="edit( item )">
+	               		<small class="fas fa-pen mr"></small>
+	               	</button>
+	             </td>
+           	</tr>
+        </tbody>
+    </table>
+    <div>
+		Tổng số đơn hàng bạn đang giao : <b>{{ itemsForShippingStaff.length }}</b>
+	</div>
+  
+</div>

@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout/layout::dynamic( ~{ ::title } , ~{ ::main } )}">
+<title th:if="${ session.main_category == null }">Sản phẩm - G2Shop</title>
+<title th:if="${ session.main_category != null }">[[${ session.main_category.name }]] - G2Shop</title>
+<main>
+  	<div class="container my-3">
+	    <div class="row">
+	    	<div class="col-12 px-3">
+	      		<a href="/" class="v-a-3 mr-1 text-secondary v-font-size-small">Trang chủ</a> /
+	      		<a th:unless="${ session.main_category }" href="/san-pham?categories=0" class="v-a-3 mx-1 text-secondary v-font-size-small v-font-weight-6">Sản phẩm</a>
+	      		<th:block th:if="${ session.main_category }">
+	      			<a href="/san-pham?categories=0" class="v-a-3 mx-1 text-secondary v-font-size-small">Sản phẩm</a>
+	      			/ 
+	      			<a 
+	      				th:href="'/san-pham/' + ${ session.main_category.slug }" 
+	      				class="v-a-3 mx-1 text-secondary v-font-size-small v-font-weight-6">
+	      					[[${ session.main_category.name }]]
+	      			</a>
+	      		</th:block>
+	      	</div>
+	    </div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-12 px-3">
+				<form id="form-filter-product" method="get" action="/san-pham">
+					<div>
+						<span class="mr-3 v-font-weight-6">Loại sản phẩm:</span>
+						<div class="d-lg-none my-2"></div>
+						<div th:each="category:${categories}" class="d-inline-block mr-3">
+							<input 
+								class="mr-1"
+								type="checkbox" 
+								th:id="'input-filter-category'+${category.id}" 
+								name="categories" 
+								th:value="${category.id}" 
+								th:checked="${session.filter_categories == null ? false : #arrays.contains( session.filter_categories , category.id )}"
+								onchange="doFilter()">
+							<label
+								class="v-font-size-small" 
+								th:for="'input-filter-category'+${category.id}">
+								[[${category.name}]]
+							</label>
+						</div>
+					</div>
+					<div class="my-2">
+						<span class="mr-3 v-font-weight-6 mt-2 mb-1">Thương hiệu:</span>
+						<div class="d-lg-none my-2"></div>
+						<div th:each="brand:${brands}" class="d-inline-block mr-3">
+							<input 
+								class="mr-1"
+								type="checkbox"
+								th:id="'input-filter-brand'+${brand.id}" 
+								name="brands" 
+								th:value="${brand.id}"
+								th:checked="${session.filter_brands == null ? false : #arrays.contains( session.filter_brands , brand.id )}"
+								onchange="doFilter()">
+							<label 
+								class="v-font-size-small" 
+								th:for="'input-filter-brand'+${brand.id}">
+								[[${brand.name}]]
+							</label>
+						</div>
+					</div>
+					<select name="price-range" class="border border-secondary px-2 py-1 my-2 mr-4" onchange="doFilter()">
+						  <option value="1" th:selected="${session.filter_price_range == 1}">Tất cả khoảng giá</option>
+						  <option value="2" th:selected="${session.filter_price_range == 2}">Dưới 1Tr</option>
+						  <option value="3" th:selected="${session.filter_price_range == 3}">1Tr - Dưới 2Tr</option>
+						  <option value="4" th:selected="${session.filter_price_range == 4}">2Tr - Dưới 3Tr</option>
+						  <option value="5" th:selected="${session.filter_price_range == 5}">3Tr - Dưới 5Tr</option>
+						  <option value="6" th:selected="${session.filter_price_range == 6}">5Tr - Dưới 7Tr</option>
+						  <option value="7" th:selected="${session.filter_price_range == 7}">7Tr - Dưới 10Tr</option>
+						  <option value="8" th:selected="${session.filter_price_range == 8}">10Tr- Dưới 15Tr</option>
+						  <option value="9" th:selected="${session.filter_price_range == 9}">15Tr- Dưới 20Tr</option>
+						  <option value="10" th:selected="${session.filter_price_range == 10}">Trên 20Tr</option>
+						  
+					</select>
+					<th:block th:if="${ session.USER }" class="my-2">
+						<th:block th:if="${ session.USER.role.id == 1 }">
+							<div class="d-inline-block">
+								<input class="border border-secondary rounded mr-1" type="checkbox" id="input-filter-is-only-liked" name="is-only-liked" th:checked="${ session.filter_is_only_liked == null ? false : session.filter_is_only_liked }" onchange="doFilter()">
+								<label for="input-filter-is-only-liked"><b>Chỉ sản phẩm bạn đã thích</b></label>
+							</div>
+							<span class="d-none d-lg-inline-block mx-3">||</span>
+							<div class="d-inline-block">
+								<input class="border border-secondary rounded mr-1" type="checkbox" id="input-filter-is-only-bought" name="is-only-bought" th:checked="${ session.filter_is_only_bought == null ? false : session.filter_is_only_bought }" onchange="doFilter()">
+								<label for="input-filter-is-only-bought"><b>Chỉ sản phẩm bạn đã mua</b></label>
+							</div>
+						</th:block>
+					</th:block>
+					<div class="my-2">
+						<div class="d-inline-block">
+							<input class="border border-secondary rounded mr-1" type="checkbox" id="input-sort" name="is-sort-enabled" th:checked="${session.is_sort_enabled}" onchange="doFilter()">
+							<label for="input-sort" class="mr-3"><b>Sắp xếp:</b></label>
+						</div>
+						<div class="d-lg-none my-2"></div>
+						<div class="d-inline-block">
+							<input type="radio" value="likesCount" id="input-sort-by-likes" name="sort-by" th:checked="${session.sort_by == 'likesCount'}" onchange="doFilter()">
+							<label for="input-sort-by-likes" class="v-font-size-small mr-3">Số lượt yêu thích</label>
+						</div>
+						<div class="d-inline-block">
+							<input type="radio" value="salePrice" id="input-sort-by-sale-price" name="sort-by" th:checked="${session.sort_by == 'salePrice'}" onchange="doFilter()">
+							<label for="input-sort-by-sale-price" class="v-font-size-small mr-3">Giá sản phẩm</label>
+						</div>
+						<div class="d-inline-block">
+							<input type="radio" value="discount" id="input-sort-by-discount" name="sort-by" th:checked="${session.sort_by == 'discount'}" onchange="doFilter()">
+							<label for="input-sort-by-discount" class="v-font-size-small mr-3">Giảm giá</label>
+						</div>
+						<div class="d-inline-block">
+							<input type="radio" value="saleCount" id="input-sort-by-total-sales" name="sort-by" th:checked="${session.sort_by == 'saleCount'}" onchange="doFilter()">
+							<label for="input-sort-by-total-sales" class="v-font-size-small mr-3">Số lượt mua</label>
+						</div>
+						<div class="d-inline-block">
+							<input type="radio" value="viewCount" id="input-sort-by-view-count" name="sort-by" th:checked="${session.sort_by == 'viewCount'}" onchange="doFilter()">
+							<label for="input-sort-by-view-count" class="v-font-size-small mr-3">Số lượt xem</label>
+						</div>
+						<span class="d-none d-lg-inline-block mx-3">||</span>
+						<div class="d-lg-none my-2"></div>
+						<div class="d-inline-block">
+							<input type="radio" value="0" id="input-sort-dir-a-z" name="sort-dir" th:checked="${session.sort_dir == '0'}" onchange="doFilter()">
+							<label for="input-sort-dir-a-z" class="v-font-size-small mr-3">A-Z</label>
+							<input type="radio" value="1" id="input-sort-dir-z-a" name="sort-dir" th:checked="${session.sort_dir == '1'}" onchange="doFilter()">
+							<label for="input-sort-dir-z-a" class="v-font-size-small mr-3">Z-A</label>
+						</div>
+					<hr>
+					<input type="hidden" name="is-filter-new" value="true">
+					<div>
+						<button class="btn btn-light mr-1" type="submit">
+							<i class="fa-solid fa-filter mr-1"></i>
+							Lọc sản phẩm
+						</button>
+						<a class="btn btn-success" type="submit" href="/san-pham?is-filter-new=true">
+							<i class="fa-solid fa-arrows-rotate mr-1"></i>
+							Làm mới
+						</a>
+					</div>
+					
+					<div th:if="${session.search!=''}" class="text-secondary text-right">
+						<hr class="my-2">
+						Bạn đang tìm: <span class="text-danger font-italic v-font-weight-6">[[${session.search}]]</span>
+						<a href="/san-pham?search=" class="btn btn-danger px-2 py-0 ml-2">Xóa</a>
+					</div>
+				</form>
+			</div>
+		</div>
+		<hr>
+		
+		<div class="col-12 col-lg-6 text-secondary font-italic mt-3 mb-2 px-3">
+			Đã tìm thấy [[${ productPage.getTotalElements() }]] sản phẩm
+		</div>
+		<div class="d-none d-lg-block col-6 my-2 text-right">
+			<a href="?page=1" class="btn btn-light">
+				Đầu
+			</a>
+			<a th:href="'?page=' + ${ session.page == 0 ? 1 : session.page }" class="btn btn-light mx-1">
+				<i class="fa-solid fa-angle-left"></i>
+			</a>
+			<h5 class="text-dark d-inline-block"><small>Trang</small> <b>[[${ session.page + 1 }]]</b> / <small>[[${productPage.getTotalPages()}]]</small></h5>
+			<a th:href="'?page=' + ${ session.page == productPage.getTotalPages() - 1 ? productPage.getTotalPages() : session.page + 2 }" class="btn btn-light mx-1">
+				<i class="fa-solid fa-angle-right"></i>
+			</a>
+			<a th:href="'?page=' + ${ productPage.getTotalPages() }" class="btn btn-light">
+				Cuối
+			</a>
+		</div>
+		<div th:each="product : ${ productPage.content }" class="d-none d-lg-block col-3 px-1 my-2">
+			<th:block th:include="/user/layout/product-box"></th:block>
+		</div>
+		<div th:each="product : ${ productPage.content }" class="d-lg-none col-6 px-1 my-2">
+			<th:block th:include="/user/layout/product-box"></th:block>
+		</div>	
+	</div>
+	<div class="row my-4" th:if="${ productPage.getTotalPages() > 0 }">
+		<div class="col-12 text-center">
+			<a href="?page=1" class="btn btn-light">
+				Đầu
+			</a>
+			<a th:href="'?page=' + ${ session.page == 0 ? 1 : session.page }" class="btn btn-light">
+				<i class="fa-solid fa-angle-left"></i>
+			</a>
+			<h5 class="text-dark d-inline-block"><small>Trang</small> <b>[[${ session.page + 1 }]]</b> / <small>[[${productPage.getTotalPages()}]]</small></h5>
+			<a th:href="'?page=' + ${ session.page == productPage.getTotalPages() - 1 ? productPage.getTotalPages() : session.page + 2 }" class="btn btn-light">
+				<i class="fa-solid fa-angle-right"></i>
+			</a>
+			<a th:href="'?page=' + ${ productPage.getTotalPages() }" class="btn btn-light">
+				Cuối
+			</a>
+		</div>
+	</div>
+	<script>
+		const doFilter = () => {
+			document.getElementById( "form-filter-product" ).submit()
+		}
+	</script>
+</main>
+</html>

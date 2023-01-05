@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout/layout::dynamic( ~{ ::title } , ~{ ::main } ) }">
+<title>[[${ news.title }]] - Tin tức - G2SHOP</title>
+<main>
+  	<div class="container my-3">
+		<div class="row">
+			<div class="col-12 px-3">
+				<a href="/" class="v-a-3 mr-1 text-secondary v-font-size-small">
+	      			Trang chủ
+	      		</a>
+	      		/
+	      		<a href="/tin-tuc" class="v-a-3 mx-1 text-secondary v-font-size-small">
+	      			Tin tức
+	      		</a>
+	      		/
+	      		<a 
+      				th:href="'/tin-tuc/' + ${ news.id }" 
+      				class="v-a-3 mx-1 text-secondary v-font-size-small v-font-weight-6">
+      					[[${ news.title }]]
+      			</a>
+			</div>
+		</div>
+	</div>
+	<div class="container my-4">
+		<div class="row">
+			<div class="col-12 px-3">
+				<img th:src="@{|/images/news/${ news.imageName }|}" class="w-100">
+				<h3 class="my-4">[[${ news.title }]]</h3>
+				<div>
+					[(${ news.content })]
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+</html>

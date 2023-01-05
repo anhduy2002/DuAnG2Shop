@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout/layout::dynamic( ~{ ::title } , ~{ ::main } )}">
+<title>Giỏ hàng của bạn - G2Shop</title>
+<main>
+	<div class="container my-3">
+	    <div class="row">
+	    	<div class="col-12 px-3">
+	      		<a href="/" class="v-a-3 mr-1 text-secondary v-font-size-small">Trang chủ</a> /
+	      		<a href="/gio-hang" class="v-a-3 mx-1 text-secondary v-font-size-small v-font-weight-6">Giỏ hàng của bạn</a>
+	      	</div>
+	    </div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-12 px-3" th:if="${#lists.size(session.cart.items) > 0}">
+				<div class="d-none d-lg-block">
+					<table class="table table-hover table-bordered bg-white rounded v-shadow td-vertical-align-middle ">
+				    	<thead class="thead-light">
+				        	<tr>
+				        		<th>STT</th>
+				         		<th class="text-center">Mã SP</th>
+		                 		<th>Tên sản phẩm</th>
+		                 		<th class="text-center">Hình</th>
+		                 		<th class="text-center">Đơn giá</th>
+		                 		<th class="text-center">Số lượng</th>
+		                 		<th class="text-center">Tổng</th>
+		                 		<th class="text-center">Xóa</th>
+				         	</tr>
+						</thead>
+				        <tbody>
+				             <tr th:each="item,iStat:${session.cart.items}">
+				             	<td class="text-right">[[${ iStat.index + 1 }]]</td>
+				                <td class="text-right">[[${ item.product.id }]]</td>
+				                <td>
+				                	<a class="v-text" th:href="@{|/san-pham/${item.product.category.slug}/${item.product.slug}|}">
+				                 		[[${ item.product.name }]]
+				                 	</a>
+				                </td>
+				                <td class="text-center">
+				                	<img 
+				                 		th:src="@{|/images/products/${ item.product.id }/${ item.product.imageName }|}" 
+				                 		class="rounded" 
+				                 		style="width:50px"
+				                 	>
+				                 </td>
+				                 <td class="vertical-align-middle text-right">
+				                 	<h6 class="text-danger m-0 v-font-weight-6">
+				                 		[[${ #numbers.formatCurrency( item.product.salePrice ) }]]
+				                 	</h6>
+				                 </td>
+				                <td class="text-center vertical-align-middle">
+				                	<div class="border border-secondary mr-2 d-inline-block">
+				                		<!--
+					                	<button 
+											class="btn btn-light v-color rounded-0 py-1 px-2 mr-0"
+											th:attr="ng-click=@{|cart.update( ${ item.product.id } , ${ item.quantity - 1 > 0 ? item.quantity - 1 : 1 } ) |}">
+												-
+										</button>
+										-->
+										<form action="/gio-hang/cap-nhat" method="POST">
+											<input type="hidden" 
+												name="id" th:value="${ iStat.index }">
+											<input 
+												id="input-product-number" 
+												class="border-0 rounded-0 py-1 px-2 m-0" 
+												type="number" 
+												min=1
+												max=99
+												name="quantity"
+												th:value="${item.quantity}"
+												style="max-width:75px"
+												onchange="updateCartItem( this )"
+											>			
+										</form>
+										
+										<!--
+										<button 
+											class="btn btn-light v-color rounded-0 py-1 px-2 ml-0" 
+											th:attr="ng-click=@{|cart.update( ${ item.product.id } , ${ item.quantity + 1 < 100 ? item.quantity + 1 : 100 } ) |}">
+												+
+										</button>
+										-->
+									</div>
+				                 </td>
+				                 <td class="vertical-align-middle">
+				                 	<h6 class="text-danger m-0 v-font-weight-6 text-right">
+				                 		[[${ #numbers.formatCurrency( item.product.salePrice * item.quantity ) }]]
+				                 	</h6>
+				                 </td>
+				                 <td class="text-center vertical-align-middle">
+				                 	<a 
+				                 		class="btn btn-danger px-2 v-shadow-5 fa-solid fa-trash-can v-zoom" 
+				                 		th:href="@{|/gio-hang/xoa-san-pham?id=${ iStat.index }|}">
+				                 	</a>
+				                 </td>
+				             </tr>
+				         </tbody>
+			     	</table>
+				</div>
+				<div class="d-lg-none">
+					<table class="table bg-white table-hover rounded v-shadow">
+				    	<thead class="thead-light">
+				        	<tr>
+		                 		<th>Tên sản phẩm</th>
+		                 		<th class="text-center">Đơn giá</th>
+		                 		<th class="text-center">Số lượng</th>
+		                 		<th class="text-center">Xóa</th>
+				         	</tr>
+						</thead>
+				        <tbody>
+				             <tr th:each="item,iStat:${session.cart.items}">
+				                <td class="vertical-align-middle">
+				                	<a class="v-text" th:href="@{|/san-pham/${item.product.category.slug}/${item.product.slug}|}">
+				                 		[[${ item.product.name }]]
+				                 	</a>
+				                </td>
+				                 <td class="vertical-align-middle text-right">
+				                 	<b class="text-danger m-0 v-font-weight-6">
+				                 		[[${ #numbers.formatCurrency( item.product.salePrice ) }]]
+				                 	</b>
+				                 </td>
+				                <td class="text-center vertical-align-middle">
+				                	<div class="border border-secondary mr-2 d-inline-block">
+										<form action="/gio-hang/cap-nhat" method="POST">
+											<input type="hidden" 
+												name="id" th:value="${ iStat.index }">
+											<input 
+												id="input-product-number" 
+												class="border-0 rounded-0 py-1 px-2 m-0" 
+												type="number" 
+												min="1"
+												max="99"
+												step="1"
+												name="quantity"
+												th:value="${item.quantity}"
+												style="max-width:75px"
+												onchange="updateCartItem( this )"
+											>			
+										</form>
+									</div>
+				                 </td>
+				                 <td class="text-center vertical-align-middle">
+				                 	<a 
+				                 		class="btn btn-danger px-2 v-shadow-5 fa-solid fa-trash-can v-zoom" 
+				                 		th:href="@{|/gio-hang/xoa-san-pham?id=${ iStat.index }|}">
+				                 	</a>
+				                 </td>
+				             </tr>
+				         </tbody>
+			     	</table>
+				</div>				
+			    <h5>
+			    	Tổng giá trị:
+			    	<span class="text-danger m-0 v-font-weight-6 ml-2">[[${ #numbers.formatCurrency( session.cart.totalCost ) }]]</span>
+			    </h5>
+			    <hr class="my-3">
+				<div>
+					<a th:if="${ session.USER == null || session.USER.role.id == 1 }" href="/gio-hang/xem-truoc-don-hang" class="btn btn-info v-shadow-5 mr-2" type="submit">
+        				<i class="fa-regular fa-eye mr-1"></i>
+        				Xem trước đơn hàng
+					</a>
+					<a 
+						href="/gio-hang/lam-moi"
+						class="btn btn-warning v-shadow-5 mr-2">
+							<i class="fa-solid fa-arrows-rotate mr-1"></i>
+        					Làm mới
+					</a>
+					<a 
+						th:href="${referer == null ? '/san-pham' : referer}"
+						class="btn btn-success v-shadow-5">
+							<img src="/images/cart.png" width="20px" class="mr-1" style="filter:invert();">
+        					Tiếp tục mua sắm
+					</a>
+				</div>
+			</div>
+			<div class="col-12 px-3" th:if="${#lists.size(session.cart.items) == 0}">
+				<div style="text-align: center;">
+					<img 
+                 		th:src="@{|/images/empty-cart.png|}" 
+                 		class="rounded" 
+                 		style="width: 80%; max-width: 775px;"
+                 	>
+                 	<h2 class="mt-4" style="color: #336699;">GIỎ HÀNG TRỐNG</h2>
+                 	<a 
+						href="/san-pham"
+						class="btn btn-success v-shadow-5 mt-4" style="width: 200px; font-size: 20px;">
+							<img src="/images/cart.png" width="24px" class="mr-1" style="filter:invert();">
+        					Mua sắm
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		const updateCartItem = e => {
+			e.value = Math.floor( Number( e.value ) )
+			if( e.value > Number( e.max ) ){
+				e.value = e.max
+				alert( "Số lượng sản phẩm không được lớn hơn 99!" )
+			} else if( e.value < Number( e.min ) ){
+				e.value = e.min
+				alert( "Số lượng sản phẩm không được bé hơn 1!" )
+			}
+			e.parentElement.submit()
+		}
+	</script>    
+</main>
+</html>

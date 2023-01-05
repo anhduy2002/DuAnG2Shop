@@ -1,0 +1,157 @@
+<div>
+	<h4 class="v-font-weight-3">DANH SÁCH ĐƠN HÀNG</h4>
+	<hr>
+	<b>LỌC ĐƠN HÀNG</b>
+	<div class="my-3">
+		<div class="mb-2">Trạng thái đơn hàng:</div>
+		<div class="d-inline-block mr-4">
+			<input type="radio" id="filter-orderStatus" name="filter-category" ng-model="filter.orderStatus" value="" checked="checked" ng-click="filter.filt()">
+			<label for="filter-orderStatus">Tất cả</label>
+		</div>
+		<div ng-repeat="( index , item ) in orderStatuses" class="d-inline-block mr-4">
+			<input type="radio" id="filter-orderStatus-{{item.id}}" name="filter-category" ng-model="filter.orderStatus" value="{{item.id}}" ng-click="filter.filt()">
+			<label for="filter-orderStatus-{{item.id}}">{{ item.name }}</label>
+		</div>
+	</div>
+	<div class="my-3">
+		Theo
+		<div class="mx-3 d-inline-block">
+			<input type="checkbox" id="filter-byTotalCost" ng-model="filter.byTotalCost" ng-change="filter.filt()">
+			<label for="filter-byPrice">Giá trị ĐH:</label>
+		</div>
+		<div class="mx-1 d-inline-block">
+			<label class="mr-1">Từ</label>
+			<input class="form-control d-inline-block" type="number" ng-model="filter.totalCost.min" style="max-width:150px" min="0" step="100000" ng-change="filter.filt()">
+		</div>
+		<div class="mx-1 d-inline-block">
+			<label class="mr-1">đến</label>
+			<input class="form-control d-inline-block" type="number" ng-model="filter.totalCost.max" style="max-width:150px" min="0" step="100000" ng-change="filter.filt()">
+		</div>
+		<span class="mx-2">|</span>
+		<div class="mx-3 d-inline-block">
+			<input type="checkbox" id="filter-byShippingFee" ng-model="filter.byShippingFee" ng-change="filter.filt()">
+			<label for="filter-byShippingFee">Phí ship:</label>
+		</div>
+		<div class="mx-1 d-inline-block">
+			<label class="mr-1">Từ</label>
+			<input class="form-control d-inline-block" type="number" ng-model="filter.shippingFee.min" style="max-width:150px" min="0" step="1000" ng-change="filter.filt()">
+		</div>
+		<div class="mx-1 d-inline-block">
+			<label class="mr-1">đến</label>
+			<input class="form-control d-inline-block" type="number" ng-model="filter.shippingFee.max" style="max-width:150px" min="0" step="1000" ng-change="filter.filt()">
+		</div>
+	</div>
+	<div class="my-3">
+		Theo
+		<div class="mx-3 d-inline-block">
+			<input type="checkbox" id="filter-byCreatedDate" ng-model="filter.byCreatedDate" ng-change="filter.filt()">
+			<label for="filter-byCreatedDate">Ngày đặt hàng:</label>
+		</div>
+		<div class="mx-1 d-inline-block">
+			<input class="form-control d-inline-block" type="date" ng-model="filter.createdDate.min" style="max-width:150px" ng-change="filter.filt()">
+		</div>
+		<div class="mx-1 d-inline-block">
+			<label class="mr-1">-</label>
+			<input class="form-control d-inline-block" type="date" ng-model="filter.createdDate.max" style="max-width:150px" ng-change="filter.filt()">
+		</div>
+		<span class="mx-2">|</span>
+		<div class="mx-3 d-inline-block">
+			<input type="checkbox" id="filter-byReceivedDate" ng-model="filter.byReceivedDate" ng-change="filter.filt()">
+			<label for="filter-byReceivedDate">Ngày nhận hàng:</label>
+		</div>
+		<div class="mx-1 d-inline-block">
+			<input class="form-control d-inline-block" type="date" ng-model="filter.receivedDate.min" style="max-width:150px" ng-change="filter.filt()">
+		</div>
+		<div class="mx-1 d-inline-block">
+			<label class="mr-1">-</label>
+			<input class="form-control d-inline-block" type="date" ng-model="filter.receivedDate.max" style="max-width:150px" ng-change="filter.filt()">
+		</div>
+	</div>
+	<div class="my-3">
+		Theo
+		<div class="mx-3 d-inline-block">
+			<input type="checkbox" id="filter-byConfirmingStaffId" ng-model="filter.byConfirmingStaffId" ng-change="filter.filt()">
+			<label for="filter-byConfirmingStaffId">NV xác nhận:</label>
+		</div>
+		<select class="p-1 rounded" ng-model="filter.confirmingStaffId" ng-options="staff.id as ( '#' + staff.id + ' - ' + staff.fullname ) for staff in staffs" ng-change="filter.filt()">
+		</select>
+		<span class="mx-2">|</span>
+		<div class="mx-3 d-inline-block">
+			<input type="checkbox" id="filter-byShippingStaffId" ng-model="filter.byShippingStaffId" ng-change="filter.filt()">
+			<label for="filter-byShippingStaffId">NV giao hàng:</label>
+		</div>
+		<select class="p-1 rounded" ng-model="filter.shippingStaffId" ng-options="staff.id as ( '#' + staff.id + ' - ' + staff.fullname ) for staff in staffs" ng-change="filter.filt()">
+		</select>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-6">
+			<button class="btn btn-success" ng-click="filter.reset()">Làm mới</button>
+		</div>
+		<div class="col-6 text-right">
+			<button class="btn btn-light" ng-click="pager.first()">
+				<i class="fas fa-angle-double-left"></i>
+			</button>
+			<button class="btn btn-light m-1 mr-4" ng-click="pager.prev()">
+				<i class="fas fa-angle-left"></i>
+			</button>
+			Trang: 
+			<input class="form-control d-inline-block" ng-model="pager.page" style="max-width:85px" type="number"> 
+			/ {{pager.count}}
+			<button class="btn btn-light m-1 ml-4" ng-click="pager.next()">
+				<i class="fas fa-angle-right"></i>
+			</button>
+			<button class="btn btn-light" ng-click="pager.last()">
+				<i class="fas fa-angle-double-right"></i>
+			</button>
+		</div>
+	</div>
+	<table class="table table-hover table-bordered bg-white rounded mt-3 mb-0 v-shadow mb-4">
+         <thead class="thead-light">
+             <tr>
+                 <th class="text-center">#</th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'id' )">Số ĐH</a></th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'customer.id' )">Khách hàng</a></th>  
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'createdDate' )">Ngày đặt hàng</a></th>  
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'orderStatus.id' )">Trạng thái</a></th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'confirmingStaff.id' )">NV Xác nhận</a></th>  
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'shippingStaff.id' )">NV Giao hàng</a></th>  
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'orderStatus.received' )">Ngày nhận hàng</a></th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'shippingFee' )">Phí ship</a></th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'orderStatus.totalCost' )">Giá trị đơn hàng</a></th>
+                 <th class="text-center">Sửa</th>
+             </tr>
+         </thead>
+         <tbody>
+         	<tr ng-repeat="( index , item ) in items | orderBy:propertyName:!reverse"
+             	ng-if="pager.isInCurrentPage( index )" 
+             	ng-class="'v-bg-order-'+item.orderStatus.id">
+                 <td class="text-right">{{ index + 1 }}</td>
+                 <td class="text-right">{{ item.id }}</td>
+                 <td>{{ "#" + item.customer.id + " - " + item.customer.fullname }}</td>
+                 <td class="text-center">{{ item.createdDate | date:'dd-MM-yyyy - HH:mm:ss'}}</td>
+                 <td class="text-center">{{ item.orderStatus.name }}</td>
+                 <td class="text-center" ng-if="item.confirmingStaff">{{ '#' + item.confirmingStaff.id + ' - ' + item.confirmingStaff.fullname }}</td>
+                 <td ng-if="!item.confirmingStaff"></td>
+                 <td class="text-center" ng-if="item.shippingStaff">{{ '#' + item.shippingStaff.id + ' - ' + item.shippingStaff.fullname }}</td>
+                 <td ng-if="!item.shippingStaff"></td>
+                 <td class="text-center">{{ item.receivedDate | date:'dd-MM-yyyy - HH:mm:ss'}}</td>
+                 <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.shippingFee | currency : "" : 0 }}<u class="v-font-weight-5">đ</u>
+			     </td>
+                 <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.totalCost | currency : "" : 0 }}<u class="v-font-weight-5">đ</u>
+			     </td>
+	             <td class="p-2 text-center">
+	               	<button class="btn btn-info v-warning py-0 px-1 m-0 v-shadow" ng-click="edit( item )">
+	               		<small class="fas fa-pen mr"></small>
+	               	</button>
+	             </td>
+           	</tr>
+        </tbody>
+    </table>
+    <div>
+		Tổng số đơn hàng : <b>{{ items.length }}</b>
+	</div>
+  
+</div>

@@ -1,0 +1,67 @@
+<div>
+	<h4 class="v-font-weight-3">THỐNG KÊ TỒN KHO THEO LOẠI SẢN PHẨM</h4>
+	<div class="v-shadow overflow-auto my-3" style="max-height:500px">
+		<table class="table table-bordered table-hover bg-white rounded td-font-size-14 mb-0">
+	         <thead class="thead-light">
+	             <tr>
+	                 <th>#</th>
+	                 <th>Mã loại sản phẩm</th>
+	                 <th>Tên loại sản phẩm</th>
+	                 <th class="text-center">Số sản phẩm</th>
+	                 <th class="text-center">Tổng số lượng tồn kho</th>
+	             </tr>
+	         </thead>
+	         <tbody>
+	             <tr ng-repeat="( index , item ) in report1A" >
+	                 <td>{{ index + 1 }}</td>
+	                 <td>{{ item.category.id }}</td>
+	                 <td>{{ item.category.name }}</td>
+	                 <td class="text-right">{{ item.count }}</td>
+	                 <td class="text-right">{{ item.totalQuantity }}</td>
+	           	</tr>
+	        </tbody>
+	    </table>
+	</div>
+    <div>
+		Tổng số loại sản phẩm : <b>{{ report1A.length }}</b>
+	</div>
+	<div class="text-center">
+		<button class="btn btn-info d-block my-2" ng-click="showChart1A()">Xem/ẩn Biểu đồ</button>
+		<br>
+		<canvas id="chart-1A" class="v-shadow m-2" style="height: 0px"></canvas>
+		<canvas id="pie-chart-1A" class="v-shadow m-2" style="height: 0px"></canvas>
+	</div>
+	<hr>
+	<h4 class="v-font-weight-3">THỐNG KÊ TỒN KHO THEO THƯƠNG HIỆU</h4>
+	<div class="v-shadow overflow-auto my-3" style="max-height:500px">
+		<table class="table table-bordered table-hover bg-white rounded td-font-size-14 mb-0">
+	         <thead class="thead-light">
+	             <tr>
+	                 <th>#</th>
+	                 <th>Mã thương hiệu</th>
+	                 <th>Tên thương hiệu</th>
+	                 <th class="text-center">Số sản phẩm</th>
+	                 <th class="text-center">Tổng số lượng tồn kho</th>
+	             </tr>
+	         </thead>
+	         <tbody>
+	             <tr ng-repeat="( index , item ) in report1B" >
+	                 <td>{{ index + 1 }}</td>
+	                 <td>{{ item.brand.id }}</td>
+	                 <td>{{ item.brand.name }}</td>
+	                 <td class="text-right">{{ item.count }}</td>
+	                 <td class="text-right">{{ item.totalQuantity }}</td>
+	           	</tr>
+	        </tbody>
+	    </table>
+	</div>
+    <div>
+		Tổng số thương hiệu : <b>{{ report1B.length }}</b>
+	</div>
+	<div class="text-center">
+		<button class="btn btn-info d-block my-2" ng-click="showChart1B()">Xem/ẩn Biểu đồ</button>
+		<br>
+		<canvas id="chart-1B" class="v-shadow m-1" style="height: 0px"></canvas>
+		<canvas id="pie-chart-1B" class="v-shadow m-1" style="height: 0px"></canvas>
+	</div>
+</div>

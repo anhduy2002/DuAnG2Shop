@@ -1,0 +1,78 @@
+
+<nav class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
+    <button 
+    	class="nav-link active" 
+    	id="nav-tab-report1" 
+    	data-bs-toggle="tab" 
+    	data-bs-target="#nav-report1" 
+    	type="button" role="tab" 
+    	aria-controls="nav-report1" 
+    	aria-selected="false">
+    		TK TỒN KHO
+    </button>
+    <button 
+    	class="nav-link" 
+    	id="nav-tab-report2" 
+    	data-bs-toggle="tab" 
+    	data-bs-target="#nav-report2" 
+    	type="button" role="tab" 
+    	aria-controls="nav-report2" 
+    	aria-selected="false">
+    		TK DS-DT ĐƠN HÀNG
+    </button>
+    <button 
+    	class="nav-link" 
+    	id="nav-tab-report3" 
+    	data-bs-toggle="tab" 
+    	data-bs-target="#nav-report3" 
+    	type="button" role="tab" 
+    	aria-controls="nav-report3"
+    	aria-selected="false">
+    		TK DS-DT SẢN PHẨM
+    </button>
+    <button 
+    	class="nav-link" 
+    	id="nav-tab-report4" 
+    	data-bs-toggle="tab" 
+    	data-bs-target="#nav-report4" 
+    	type="button" role="tab" 
+    	aria-controls="nav-report4"
+    	aria-selected="false">
+    		TK DS-DT LOẠI SẢN PHẨM
+    </button>
+</nav>
+
+<div class="tab-content p-4" id="nav-tabContent">
+  	<div 
+  		class="tab-pane fade show active" 
+  		id="nav-report1" 
+  		role="tabpanel" 
+  		aria-labelledby="nav-report1" 
+  		tabindex="0">
+  			<div ng-include="'/admins/html/report/_report1.html'"></div>
+  	</div>
+  	<div 
+  		class="tab-pane fade" 
+  		id="nav-report2" 
+  		role="tabpanel" 
+  		aria-labelledby="nav-report2" 
+  		tabindex="1">
+  			<div ng-include="'/admins/html/report/_report2.html'"></div>
+  	</div>
+  	<div 
+  		class="tab-pane fade" 
+  		id="nav-report3" 
+  		role="tabpanel" 
+  		aria-labelledby="nav-report3"
+  		tabindex="2">
+  			<div ng-include="'/admins/html/report/_report3.html'"></div>
+  	</div>
+  	<div 
+  		class="tab-pane fade" 
+  		id="nav-report4" 
+  		role="tabpanel" 
+  		aria-labelledby="nav-report4"
+  		tabindex="3">
+  			<div ng-include="'/admins/html/report/_report4.html'"></div>
+  	</div>
+</div>

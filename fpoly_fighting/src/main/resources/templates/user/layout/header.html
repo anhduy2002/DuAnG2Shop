@@ -1,0 +1,92 @@
+<header class="v-bg v-shadow-6" style="position: sticky;top: 0px;z-index: 2">
+   	<div class="container">
+		<div class="row align-items-center pt-1">
+			<div class="col-4 col-lg-2 pl-3 pr-2">
+				<a href="/">
+					<img src="/images/logo-2-white.png" class="w-100">
+				</a>
+			</div>
+			<div class="col-8 col-lg-5 px-3 py-1">
+				<form class="d-flex" id="form-tim-kiem" action="/san-pham">
+					<input name="search" id="search" class="form-control p-2 px-3 m-0 w-100 border-0" type="text" style="border-radius:5px 0px 0px 5px"
+	                	placeholder="Bạn tìm gì..." th:value="${session.search}">
+	                <button type="submit" class="btn btn-light bg-white px-3 border-0"  style="border-radius:0px 5px 5px 0px">
+	            		<i class="fas fa-search v-text"></i>
+	                </button>
+				</form>
+			</div>
+			<div class="col-12 col-lg-5 d-flex px-3 py-1">
+				<button class="d-lg-none navbar-toggler v-bg text-white border-none px-0 mr-3" style="outline:none" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+					<small class="fa-solid fa-bars"></small>
+				</button>
+				<a
+					class="d-inline-block px-3 py-2 mr-3 v-bg text-white rounded v-cursor-pointer box"
+					style="border: 1px solid rgba( 255 , 255 , 255 , 0.3 )"
+					href="/gio-hang">
+					<image src="/images/cart.png" width="24px" style="filter:invert()">
+					<span class="d-none d-lg-inline mx-1 v-font-size-small">
+						Giỏ hàng
+					</span>
+					<small>( </small>
+					<b class="text-warning rounded">[[${ session.cart.totalItems }]]</b>
+					<small> )</small>
+				</a>
+				<div 
+					th:unless="${ session.USER }"
+					class="px-3 py-2 v-bg text-white rounded v-cursor-pointer box"
+					style="border: 1px solid rgba( 255 , 255 , 255 , 0.3 )">
+					<image src="/images/user.png" width="24px" style="filter:invert()">
+					<a href="/dang-nhap"><small class="v-font-weight-6 text-warning">Đăng nhập</small></a>
+					<div class="d-none d-lg-inline">
+						<small class="mx-1">|</small>
+						<a href="/dang-ky"><small class="v-font-weight-6 text-warning">Đăng ký</small></a>
+					</div>
+				</div>
+				<div 
+					th:if="${ session.USER }"
+					class="px-3 py-2 v-bg text-white rounded v-cursor-pointer position-relative box box-user"
+					style="border: 1px solid rgba( 255 , 255 , 255 , 0.3 )">
+					<image src="/images/user.png" width="24px" style="filter:invert()">
+					<small class="text-warning v-font-weight-6">
+						[[${ session.USER.fullname }]]
+					</small>
+					<div class="menu bg-white position-absolute v-shadow-5">
+						<ul class="p-0 m-0 p-3">
+							<li>
+								<a class="d-block px-2 py-1 v-text v-font-weight-5 rounded" href="/nguoi-dung/cap-nhat-tai-khoan">
+									Cập nhật tài khoản
+									<i class="fa-solid fa-info p-1 float-right d-block"></i>
+								</a>
+							</li>
+							<li>
+								<a class="d-block px-2 py-1 v-text v-font-weight-5 rounded" href="/nguoi-dung/doi-mat-khau">
+									Đổi mật khẩu
+									<i class="fa-solid fa-unlock-keyhole p-1 float-right"></i>
+								</a>
+							</li>
+							<hr class="m-2">
+							<li>
+								<a th:if="${ session.USER.role.id == 1 }" class="d-block px-2 py-1 v-text v-font-weight-5 rounded" href="/khach-hang/lich-su-dat-hang">
+									Lịch sử đặt hàng
+									<i class="fa-solid fa-clock-rotate-left p-1 float-right"></i>
+								</a>
+								<a th:if="${ session.USER.role.id != 1 }" class="d-block px-2 py-1 v-text v-font-weight-5 rounded" href="/admins/html/index.html">
+									Trang quản trị
+									<i class="fa-solid fa-user-tie p-1 float-right"></i>
+								</a>
+							</li>
+							<hr class="m-2">
+							<li>
+								<a class="d-block px-2 py-1 v-text v-font-weight-5 rounded" href="/nguoi-dung/dang-xuat">
+									Đăng xuất
+									<i class="fa-solid fa-arrow-right-from-bracket p-1 float-right"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<th:block th:include="user/layout/main-menu"></th:block>
+	</div>
+</header>

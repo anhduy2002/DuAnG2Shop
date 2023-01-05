@@ -1,0 +1,16 @@
+<!-- Angular -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.js"></script>
+
+<!-- jquery js --> 
+<script th:src="@{/user/js/jquery.min.js}"></script> 
+
+<!-- bootstrap js --> 
+<script th:src="@{/user/js/bootstrap.min.js}"></script> 
+
+<!-- Fontawesome -->
+<script src="https://kit.fontawesome.com/d766b365b6.js" crossorigin="anonymous"></script>
+
+<script th:if="${ alert }" th:inline="javascript">
+	alert( /*[[${ alert }]]*/ "" )
+</script>

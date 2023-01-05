@@ -1,0 +1,219 @@
+<div>
+	<h3 class="v-font-weight-3">THỐNG KÊ DOANH SỐ - DOANH THU ĐƠN HÀNG</h3>
+	<hr>
+	<div class="my-3">
+		Khoảng thời gian thống kê :
+		<div class="mx-2 d-inline-block">
+			Từ :
+			<input class="form-control d-inline-block" type="date" ng-model="filter.startDate" style="max-width:150px" ng-change="filter.filt()">
+		</div>
+		<div class="mx-2 d-inline-block">
+			đến :
+			<input class="form-control d-inline-block" type="date" ng-model="filter.endDate" style="max-width:150px" ng-change="filter.filt()">
+		</div>
+	</div>
+	<div class="my-3">
+		<span class="mr-3">Biểu đồ :</span>
+		<div class="d-inline-block mx-3">
+			<input type="radio" id="input-filter-g-1" name="input-filter-g" ng-model="filter.forReport2s.g" value="DOANH SỐ ĐƠN HÀNG" ng-click="filter.filt()">
+			<label for="input-filter-g-1">Doanh số đơn hàng</label>
+		</div>
+		<div class="d-inline-block mx-3">
+			<input type="radio" id="input-filter-g-2" name="input-filter-g" ng-model="filter.forReport2s.g" value="DOANH SỐ SẢN PHẨM" ng-click="filter.filt()">
+			<label for="input-filter-g-2">Doanh số sản phẩm</label>
+		</div>
+		<div class="d-inline-block mx-3">
+			<input type="radio" id="input-filter-g-3" name="input-filter-g" ng-model="filter.forReport2s.g" value="DOANH THU SẢN PHẨM" ng-click="filter.filt()">
+			<label for="input-filter-g-3">Tổng doanh thu sản phẩm</label>
+		</div>
+		<div class="d-inline-block mx-3">
+			<input type="radio" id="input-filter-g-4" name="input-filter-g" ng-model="filter.forReport2s.g" value="DOANH THU ĐƠN HÀNG" ng-click="filter.filt()">
+			<label for="input-filter-g-4">Tổng doanh thu đơn hàng</label>
+		</div>
+	</div>
+	<div class="my-3">
+		<button class="btn btn-success" ng-click="filter.reset()">Làm mới</button>
+	</div>
+	<hr>
+	<h4 class="v-font-weight-3">TỔNG HỢP</h4>
+	<div class="v-shadow overflow-auto my-3" style="max-height:500px">
+		<table class="table table-bordered table-hover bg-white rounded td-font-size-14 mb-0">
+	         <thead class="thead-light">
+	             <tr>
+	                 <th class="text-center">Doanh số đơn hàng</th>
+	                 <th class="text-center">Doanh số sản phẩm</th>
+	                 <th class="text-center">Tổng doanh thu sản phẩm</th>
+	                 <th class="text-center">Tổng doanh thu đơn hàng</th>
+	             </tr>
+	         </thead>
+	         <tbody>
+	             <tr>
+	                 <td class="text-center">{{ report2E.count }}</td>
+	                 <td class="text-center">{{ report2E.productCount }}</td>
+	                 <td class="text-danger m-0 v-font-weight-6 text-right">
+	                 	{{ report2E.totalProductCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+				     </td>
+				     <td class="text-danger m-0 v-font-weight-6 text-right">
+	                 	{{ report2E.totalCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+				     </td>
+	           	</tr>
+	        </tbody>
+	    </table>
+	 </div>
+	 <hr>
+	<h4 class="v-font-weight-3">THEO NĂM</h4>
+	<div class="v-shadow overflow-auto my-3" style="max-height:500px">
+		<table class="table table-bordered table-hover bg-white rounded td-font-size-14 mb-0">
+	         <thead class="thead-light">
+	             <tr>
+	                 <th>#</th>
+	                 <th class="text-center">Năm</th>
+	                 <th class="text-center">Doanh số đơn hàng</th>
+	                 <th class="text-center">Doanh số sản phẩm</th>
+	                 <th class="text-center">Tổng doanh thu sản phẩm</th>
+	                 <th class="text-center">Tổng doanh thu đơn hàng</th>
+	             </tr>
+	         </thead>
+	         <tbody>
+	             <tr ng-repeat="( index , item ) in report2A" >
+	                 <td>{{ index + 1 }}</td>
+	                 <td class="text-center">{{ item.year }}</td>
+	                 <td class="text-center">{{ item.count }}</td>
+	                 <td class="text-center">{{ item.productCount }}</td>
+	                 <td class="text-danger m-0 v-font-weight-6 text-right">
+	                 	{{ item.totalProductCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+				     </td>
+				     <td class="text-danger m-0 v-font-weight-6 text-right">
+	                 	{{ item.totalCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+				     </td>
+	           	</tr>
+	        </tbody>
+	    </table>
+	 </div>
+    <div>
+		Tổng số năm : <b>{{ report2A.length }}</b>
+	</div>
+	<div class="text-center overflow-auto">
+		<button class="btn btn-info d-block my-2" ng-click="showChart2A()">Xem/ẩn Biểu đồ</button>
+		<br>
+		<canvas id="line-chart-2A" class="v-shadow m-1" style="height: 0px"></canvas>
+		<canvas id="pie-chart-2A" class="v-shadow m-1" style="height: 0px"></canvas>
+	</div>
+	<hr>
+	<h4 class="v-font-weight-3">THEO QUÝ</h4>
+	<div class="v-shadow overflow-auto my-3" style="max-height:500px">
+		<table class="table table-bordered table-hover bg-white rounded td-font-size-14 mb-0">
+	         <thead class="thead-light">
+	             <tr>
+	                 <th>#</th>
+	                 <th class="text-center">Quý</th>
+	                 <th class="text-center">Doanh số đơn hàng</th>
+	                 <th class="text-center">Doanh số sản phẩm</th>
+	                 <th class="text-center">Tổng doanh thu sản phẩm</th>
+	                 <th class="text-center">Tổng doanh thu đơn hàng</th>
+	             </tr>
+	         </thead>
+	         <tbody>
+	             <tr ng-repeat="( index , item ) in report2B" >
+	                 <td>{{ index + 1 }}</td>
+	                 <td class="text-center">{{ item.quarter + '-' + item.year }}</td>
+	                 <td class="text-center">{{ item.count }}</td>
+	                 <td class="text-center">{{ item.productCount }}</td>
+	                 <td class="text-danger m-0 v-font-weight-6 text-right">
+	                 	{{ item.totalProductCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+				     </td>
+				     <td class="text-danger m-0 v-font-weight-6 text-right">
+	                 	{{ item.totalCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+				     </td>
+	           	</tr>
+	        </tbody>
+	    </table>
+    </div>
+    <div>
+		Tổng số quý : <b>{{ report2B.length }}</b>
+	</div>
+	<div class="text-center overflow-auto">
+		<button class="btn btn-info d-block my-2" ng-click="showChart2B()">Xem/ẩn Biểu đồ</button>
+		<br>
+		<canvas id="line-chart-2B" class="v-shadow m-1" style="height: 0px"></canvas>
+		<canvas id="pie-chart-2B" class="v-shadow m-1" style="height: 0px"></canvas>
+	</div>
+	<hr>
+	<h4 class="v-font-weight-3">THEO THÁNG</h4>
+	<div class="v-shadow overflow-auto my-3" style="max-height:500px">
+		<table class="table table-bordered table-hover bg-white rounded td-font-size-14 mb-0">
+	         <thead class="thead-light">
+	             <tr>
+	                 <th>#</th>
+	                 <th class="text-center">Tháng</th>
+	                 <th class="text-center">Doanh số đơn hàng</th>
+	                 <th class="text-center">Doanh số sản phẩm</th>
+	                 <th class="text-center">Tổng doanh thu sản phẩm</th>
+	                 <th class="text-center">Tổng doanh thu đơn hàng</th>
+	             </tr>
+	         </thead>
+	         <tbody>
+	             <tr ng-repeat="( index , item ) in report2C" >
+	                 <td>{{ index + 1 }}</td>
+	                 <td class="text-center">{{ item.month + '-' + item.year }}</td>
+	                 <td class="text-center">{{ item.count }}</td>
+	                 <td class="text-center">{{ item.productCount }}</td>
+	                 <td class="text-danger m-0 v-font-weight-6 text-right">
+	                 	{{ item.totalProductCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+				     </td>
+				     <td class="text-danger m-0 v-font-weight-6 text-right">
+	                 	{{ item.totalCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+				     </td>
+	           	</tr>
+	        </tbody>
+	    </table>
+	</div>
+    <div>
+		Tổng số tháng : <b>{{ report2C.length }}</b>
+	</div>
+	<div class="text-center overflow-auto">
+		<button class="btn btn-info d-block my-2" ng-click="showChart2C()">Xem/ẩn Biểu đồ</button>
+		<br>
+		<canvas id="line-chart-2C" class="v-shadow m-1" style="height: 0px"></canvas>
+		<canvas id="pie-chart-2C" class="v-shadow m-1" style="height: 0px"></canvas>
+	</div>
+	<hr>
+	<h4 class="v-font-weight-3">THEO NGÀY</h4>
+	<div class="v-shadow overflow-auto my-3" style="max-height:500px">
+		<table class="table table-bordered table-hover bg-white rounded td-font-size-14 mb-0">
+	         <thead class="thead-light">
+	             <tr>
+	                 <th>#</th>
+	                 <th class="text-center">Ngày</th>
+	                 <th class="text-center">Doanh số đơn hàng</th>
+	                 <th class="text-center">Doanh số sản phẩm</th>
+	                 <th class="text-center">Tổng doanh thu sản phẩm</th>
+	                 <th class="text-center">Tổng doanh thu đơn hàng</th>
+	             </tr>
+	         </thead>
+	         <tbody>
+	             <tr ng-repeat="( index , item ) in report2D" >
+	                 <td>{{ index + 1 }}</td>
+	                 <td class="text-center">{{ item.day + '-' + item.month + '-' + item.year }}</td>
+	                 <td class="text-center">{{ item.count }}</td>
+	                 <td class="text-center">{{ item.productCount }}</td>
+	                 <td class="text-danger m-0 v-font-weight-6 text-right">
+	                 	{{ item.totalProductCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+				     </td>
+				     <td class="text-danger m-0 v-font-weight-6 text-right">
+	                 	{{ item.totalCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+				     </td>
+	           	</tr>
+	        </tbody>
+	    </table>
+	</div>
+    <div>
+		Tổng số ngày : <b>{{ report2D.length }}</b>
+	</div>
+	<div class="text-center overflow-auto">
+		<button class="btn btn-info d-block my-2" ng-click="showChart2D()">Xem/ẩn Biểu đồ</button>
+		<br>
+		<canvas id="line-chart-2D" class="v-shadow m-1" style="height: 0px"></canvas>
+		<canvas id="pie-chart-2D" class="v-shadow m-1" style="height: 0px"></canvas>
+	</div>
+</div>

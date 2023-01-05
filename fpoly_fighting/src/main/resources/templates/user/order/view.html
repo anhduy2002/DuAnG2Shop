@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout/layout::dynamic( ~{ ::title } , ~{ ::main } )}">
+<title>Lịch sử đặt hàng - Người dùng - G2SHOP</title>
+<main>
+	<div class="container my-3">
+	    <div class="row">
+	    	<div class="col-12 px-3">
+	      		<a href="/" class="v-a-3 mr-1 text-secondary v-font-size-small">Trang chủ</a> /
+	      		<a href="/nguoi-dung/cap-nhat-tai-khoan" class="v-a-3 mx-1 text-secondary v-font-size-small">Thông tin người dùng</a> /
+	      		<a href="/khach-hang/lich-su-dat-hang" class="v-a-3 mx-1 text-secondary v-font-size-small">Lịch sử đặt hàng</a> /
+	      		<a th:href="@{|/khach-hang/lich-su-dat-hang/xem-don-hang?id=${ order.id }|}" class="v-a-3 mx-1 text-secondary v-font-size-small v-font-weight-6">Đơn hàng [[${order.id}]]</a>
+	      	</div>
+	    </div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-12 px-3" th:object="${order}">
+				<div class="v-shadow-5 p-3">
+					<div class="text-danger mb-2 v-font-weight-6" th:if="${warning}">[[${warning}]]</div>
+					<div class="text-success mb-2 v-font-weight-6" th:if="${message}">[[${message}]]</div>
+					<h5 th:class="*{ 'v-bg-order-' + orderStatus.id + ' text-dark px-2 py-1 v-shadow-5 v-font-weight-6 rounded'}" style="float:right">#[[*{ id }]]</h5>
+					<h5>THÔNG TIN ĐẶT HÀNG</h5>
+					Người đặt hàng: <b>[[*{ customer.fullname }]]</b> 
+					<br>
+					Mã khách hàng: <b>[[*{ customer.id }]]</b>
+					<br>
+					SĐT khách hàng: <b>[[*{ customer.phone }]]</b>
+					<br>
+					Ngày đặt hàng: <b>[[*{ #dates.format( createdDate , "dd-MM-yyyy - HH:mm" ) }]]</b>
+					<br>
+					Yêu cầu thêm: <b>[[*{ note }]]</b>
+					<h6 class="mt-3 mb-2">Danh mục sản phẩm đã đặt</h6>
+					<div class="d-none d-lg-block">
+						<table class="table table-hover table-bordered bg-white rounded v-shadow mb-3">
+					    	<thead class="thead-light">
+					        	<tr>
+					        		<th class="text-center">STT</th>
+					         		<th class="text-center">Mã SP</th>
+			                 		<th>Tên sản phẩm</th>
+			                 		<th class="text-center">Hình</th>
+			                 		<th class="text-center">Đơn giá</th>
+			                 		<th class="text-center">Số lượng</th>
+			                 		<th class="text-center">Tổng</th>
+					         	</tr>
+							</thead>
+					        <tbody>
+					             <tr th:each="item,iStat:*{ details }">
+					             	<td class="vertical-align-middle text-right">[[${ iStat.index + 1 }]]</td>
+					                <td class="vertical-align-middle text-right">[[${ item.product.id }]]</td>
+					                <td class="vertical-align-middle">
+					                	<a class="v-text" th:href="@{|/san-pham/${item.product.category.slug}/${item.product.slug}|}">
+					                 		[[${ item.product.name }]]
+					                 	</a>
+					                </td>
+					                <td class="text-center vertical-align-middle">
+					                	<img 
+					                 		th:src="@{|/images/products/${ item.product.id }/${ item.product.imageName }|}" 
+					                 		class="rounded" 
+					                 		style="width:50px"
+					                 	>
+					                 </td>
+					                 <td class="vertical-align-middle">
+					                 	<h6 class="m-0 text-danger v-font-weight-6 text-right">[[${ #numbers.formatCurrency( item.product.salePrice ) }]]</h6>
+					                 </td>
+					                <td class="vertical-align-middle text-right">
+					                	<span>[[${item.quantity}]]</span>
+					                 </td>
+					                 <td class="text-right vertical-align-middle">
+					                 	<h6 class="m-0 text-danger v-font-weight-6">[[${ #numbers.formatCurrency( item.product.salePrice * item.quantity ) }]]</h6>
+					                 </td>
+					             </tr>
+					         </tbody>
+					     </table>
+					</div>
+					<h6>
+				    	Tổng giá trị sản phẩm:
+				    	<span class="text-danger m-0 v-font-weight-6 ml-2">[[*{ #numbers.formatCurrency( totalProductCost ) }]]</span>
+				    </h6>
+					<hr>
+					<h5>THÔNG TIN NHẬN HÀNG</h5>
+					Họ và tên người nhận hàng: <b>[[*{ receiverFullname }]]</b>
+					<br>
+					SĐT nhận hàng: <b>[[*{ receiverPhone }]]</b>
+					<br>
+					Địa chỉ nhận hàng: <b>[[*{ receiverAddress }]]</b>
+					<hr>
+					
+					<div class="d-lg-none">
+						<table class="table bg-white table-hover rounded v-shadow mb-3">
+					    	<thead class="thead-light">
+					        	<tr>
+					         		<th>Mã SP</th>
+			                 		<th>Tên sản phẩm</th>
+			                 		<th class="text-center">Đơn giá</th>
+			                 		<th class="text-center">Số lượng</th>
+					         	</tr>
+							</thead>
+					        <tbody>
+					             <tr th:each="item,iStat:*{ details }">
+					                <td class="vertical-align-middle">[[${ item.product.id }]]</td>
+					                <td class="vertical-align-middle">
+					                	<a class="v-text" th:href="@{|/san-pham/${item.product.category.slug}/${item.product.slug}|}">
+					                 		[[${ item.product.name }]]
+					                 	</a>
+					                </td>
+					                 <td class="vertical-align-middle">
+					                 	<b class="text-danger m-0 v-font-weight-6">[[${ #numbers.formatCurrency( item.product.salePrice ) }]]</b>
+					                 </td>
+					                <td class="text-center vertical-align-middle">
+					                	<span>[[${item.quantity}]]</span>
+					                 </td>
+					             </tr>
+					         </tbody>
+					     </table>
+					</div>
+				    <div>
+				    	Trạng thái đơn hàng: <b>[[*{orderStatus.name}]]</b>
+				    	<br>
+				    	Nhân viên xác nhận: <b>[[*{ confirmingStaff == null ? '' : confirmingStaff.fullname + ' - SĐT: ' + confirmingStaff.phone }]]</b>
+				    	<br>
+				    	Ngày nhận hàng: <b>[[*{ #dates.format( receivedDate , "dd-MM-yyyy - HH:mm" ) }]]</b>
+				    	<br>
+				    	Nhân viên giao hàng: <b>[[*{ shippingStaff == null ? '' : shippingStaff.fullname + ' - SĐT: ' + shippingStaff.phone }]]</b>
+				    	<br>
+				    	Phí vận chuyển: <b>[[*{ #numbers.formatCurrency( shippingFee ) }]]</b>
+				    </div>
+				    <hr>
+				   
+				    <h5>
+				    	Tổng giá trị đơn hàng:
+				    	<span class="text-danger m-0 v-font-weight-6 ml-2">
+				    		[[*{ #numbers.formatCurrency( totalCost ) }]]
+				    	</span>
+				    </h5>
+				    <div th:if="*{orderStatus.id==0}" class="text-right">
+				    	<a  
+					    	class="btn btn-danger text-white v-shadow-5"
+					    	th:href="@{|/khach-hang/huy-don-hang?id=${ order.id }|}" >
+					    		<i class="fa-solid fa-xmark mr-1"></i>
+					    		Hủy đơn hàng
+					    </a>
+				    </div>
+				    
+				 </div>
+			</div>
+		</div>
+	</div>
+</main>

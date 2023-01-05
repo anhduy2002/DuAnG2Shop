@@ -1,0 +1,19 @@
+<h4 class="v-font-weight-3">CHỈNH SỬA TRẠNG THÁI ĐƠN HÀNG</h4>
+<hr>
+<div class="d-flex">
+	<div class="w-25 my-2 px-2">
+		<label class="mb-2">Mã trạng thái đơn hàng:</label>
+		<input class="form-control" ng-model="form.id" type="number" min="1" disabled>
+	</div>
+	<div class="w-75 my-2 px-2">
+		<label class="mb-2">Tên trạng thái đơn hàng:</label>
+		<input class="form-control" ng-model="form.name">
+	</div>
+</div>
+<hr>
+<div>
+	<button class="btn btn-info v-shadow-5 mx-2" ng-click="update()">
+		<i class="fas fa-pen mr-1"></i>
+		Cập nhật
+	</button>
+</div>

@@ -1,0 +1,127 @@
+<div>
+	<h3 class="v-font-weight-3">THỐNG KÊ DOANH SỐ - DOANH THU ĐƠN HÀNG</h3>
+	<hr>
+	<h4 class="v-font-weight-3">THEO NĂM</h4>
+	<table class="table bg-white table-hover rounded mt-3 mb-0 v-shadow mb-4 td-font-size-14">
+         <thead class="thead-light">
+             <tr>
+                 <th>#</th>
+                 <th class="text-center">Năm</th>
+                 <th class="text-center">Doanh số đơn hàng</th>
+                 <th class="text-center">Doanh số sản phẩm</th>
+                 <th class="text-center">Tổng doanh thu sản phẩm</th>
+                 <th class="text-center">Tổng doanh thu đơn hàng</th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr ng-repeat="( index , item ) in report2A" >
+                 <td>{{ index + 1 }}</td>
+                 <td class="text-center">{{ item.year }}</td>
+                 <td class="text-center">{{ item.count }}</td>
+                 <td class="text-center">{{ item.productCount }}</td>
+                 <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.totalProductCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+			     </td>
+			     <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.totalCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+			     </td>
+           	</tr>
+        </tbody>
+    </table>
+    <div>
+		Tổng số dòng: <b>{{ report2A.length }}</b>
+	</div>
+	<hr>
+	<h4 class="v-font-weight-3">THEO QUÝ</h4>
+	<table class="table bg-white table-hover rounded mt-3 mb-0 v-shadow mb-4 td-font-size-14">
+         <thead class="thead-light">
+             <tr>
+                 <th>#</th>
+                 <th class="text-center">Quý</th>
+                 <th class="text-center">Doanh số đơn hàng</th>
+                 <th class="text-center">Doanh số sản phẩm</th>
+                 <th class="text-center">Tổng doanh thu sản phẩm</th>
+                 <th class="text-center">Tổng doanh thu đơn hàng</th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr ng-repeat="( index , item ) in report2B" >
+                 <td>{{ index + 1 }}</td>
+                 <td class="text-center">{{ item.quarter + '-' + item.year }}</td>
+                 <td class="text-center">{{ item.count }}</td>
+                 <td class="text-center">{{ item.productCount }}</td>
+                 <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.totalProductCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+			     </td>
+			     <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.totalCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+			     </td>
+           	</tr>
+        </tbody>
+    </table>
+    <div>
+		Tổng số dòng: <b>{{ report2B.length }}</b>
+	</div>
+	<hr>
+	<h4 class="v-font-weight-3">THEO THÁNG</h4>
+	<table class="table bg-white table-hover rounded mt-3 mb-0 v-shadow mb-4 td-font-size-14">
+         <thead class="thead-light">
+             <tr>
+                 <th>#</th>
+                 <th class="text-center">Tháng</th>
+                 <th class="text-center">Doanh số đơn hàng</th>
+                 <th class="text-center">Doanh số sản phẩm</th>
+                 <th class="text-center">Tổng doanh thu sản phẩm</th>
+                 <th class="text-center">Tổng doanh thu đơn hàng</th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr ng-repeat="( index , item ) in report2C" >
+                 <td>{{ index + 1 }}</td>
+                 <td class="text-center">{{ item.month + '-' + item.year }}</td>
+                 <td class="text-center">{{ item.count }}</td>
+                 <td class="text-center">{{ item.productCount }}</td>
+                 <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.totalProductCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+			     </td>
+			     <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.totalCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+			     </td>
+           	</tr>
+        </tbody>
+    </table>
+    <div>
+		Tổng số dòng: <b>{{ report2C.length }}</b>
+	</div>
+	<hr>
+	<h4 class="v-font-weight-3">THEO NGÀY</h4>
+	<table class="table bg-white table-hover rounded mt-3 mb-0 v-shadow mb-4 td-font-size-14">
+         <thead class="thead-light">
+             <tr>
+                 <th>#</th>
+                 <th class="text-center">Ngày</th>
+                 <th class="text-center">Doanh số đơn hàng</th>
+                 <th class="text-center">Doanh số sản phẩm</th>
+                 <th class="text-center">Tổng doanh thu sản phẩm</th>
+                 <th class="text-center">Tổng doanh thu đơn hàng</th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr ng-repeat="( index , item ) in report2D" >
+                 <td>{{ index + 1 }}</td>
+                 <td class="text-center">{{ item.day + '-' + item.month + '-' + item.year }}</td>
+                 <td class="text-center">{{ item.count }}</td>
+                 <td class="text-center">{{ item.productCount }}</td>
+                 <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.totalProductCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+			     </td>
+			     <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.totalCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+			     </td>
+           	</tr>
+        </tbody>
+    </table>
+    <div>
+		Tổng số dòng: <b>{{ report2D.length }}</b>
+	</div>
+</div>

@@ -1,0 +1,155 @@
+<div>
+	<h4 class="v-font-weight-3">DANH SÁCH SẢN PHẨM</h4>
+	<hr>
+	<b>LỌC SẢN PHẨM</b>
+
+	<div class="my-3">
+		<div class="mb-2">Loại sản phẩm:</div>
+		<div class="d-inline-block mr-4">
+			<input type="radio" id="filter-category" name="filter-category" ng-model="filter.category" value="" checked="checked" ng-click="filter.filt()">
+			<label for="filter-category">Tất cả</label>
+		</div>
+		<div ng-repeat="( index , item ) in categories" class="d-inline-block mr-3">
+			<input type="radio" id="filter-category-{{item.id}}" name="filter-category" ng-model="filter.category" value="{{item.id}}" ng-click="filter.filt()">
+			<label for="filter-category-{{item.id}}">{{ item.name }}</label>
+		</div>
+	</div>
+	<div class="my-3">
+		<div class="mb-2">Thương hiệu:</div>
+		<div class="d-inline-block mr-4">
+			<input type="radio" id="filter-brand" name="filter-brand" ng-model="filter.brand" value="" checked="checked" ng-change="filter.filt()">
+			<label for="filter-brand">Tất cả</label>
+		</div>
+		<div ng-repeat="( index , item ) in brands" class="d-inline-block mr-3">
+			<input type="radio" id="filter-brand-{{item.id}}" name="filter-brand" ng-model="filter.brand" value="{{item.id}}" ng-change="filter.filt()">
+			<label for="filter-brand-{{item.id}}">{{ item.name }}</label>
+		</div>
+	</div>
+	<div class="my-3">
+		Theo
+		<div class="mx-3 d-inline-block">
+			<input type="checkbox" id="filter-byPrice" ng-model="filter.byPrice" ng-change="filter.filt()">
+			<label for="filter-byPrice">Giá:</label>
+		</div>
+		<div class="mx-1 d-inline-block">
+			<label class="mr-1">Từ</label>
+			<input class="form-control d-inline-block" type="number" ng-model="filter.price.min" style="max-width:150px" min="0" step="100000" ng-change="filter.filt()">
+		</div>
+		<div class="mx-1 d-inline-block">
+			<label class="mr-1">đến</label>
+			<input class="form-control d-inline-block" type="number" ng-model="filter.price.max" style="max-width:150px" min="0" step="100000" ng-change="filter.filt()">
+		</div>
+		<span class="mx-2">|</span>
+		<div class="mx-3 d-inline-block">
+			<input type="checkbox" id="filter-byDiscount" ng-model="filter.byDiscount" ng-change="filter.filt()">
+			<label for="filter-byDiscount">Giảm giá:</label>
+		</div>
+		<div class="mx-1 d-inline-block">
+			<label class="mr-1">Từ</label>
+			<input class="form-control d-inline-block mr-2" type="number" ng-model="filter.discount.min" style="max-width:100px" min="0" step="1" ng-change="filter.filt()">
+		</div>
+		<div class="mx-1 d-inline-block">
+			<label class="mr-1">đến</label>
+			<input class="form-control d-inline-block" type="number" ng-model="filter.discount.max" style="max-width:100px" step="1" min="0" ng-change="filter.filt()">
+		</div>
+	</div>
+	<div class="my-3">
+		Theo
+		<div class="mx-3 d-inline-block">
+			<input type="checkbox" id="filter-bySalePrice" ng-model="filter.bySalePrice" ng-change="filter.filt()">
+			<label for="filter-bySalePrice">Giá bán:</label>
+		</div>
+		<div class="mx-1 d-inline-block">
+			<label class="mr-1">Từ</label>
+			<input class="form-control d-inline-block" type="number" ng-model="filter.salePrice.min" style="max-width:150px" min="0" step="100000" ng-change="filter.filt()">
+		</div>
+		<div class="mx-1 d-inline-block">
+			<label class="mr-1">đến</label>
+			<input class="form-control d-inline-block" type="number" ng-model="filter.salePrice.max" style="max-width:150px" min="0" step="100000" ng-change="filter.filt()">
+		</div>
+	</div>
+	<div class="my-3">
+		<input class="form-control w-100 d-inline-block" ng-model="filter.search" placeholder="Tìm kiếm bằng tên sản phẩm hoặc slug ..." ng-change="filter.filt()">
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-6">
+			<button class="btn btn-success" ng-click="filter.reset()">Làm mới</button>
+		</div>
+		<div class="col-6 text-right">
+			<button class="btn btn-light" ng-click="pager.first()">
+				<i class="fas fa-angle-double-left"></i>
+			</button>
+			<button class="btn btn-light m-1 mr-4" ng-click="pager.prev()">
+				<i class="fas fa-angle-left"></i>
+			</button>
+			Trang: 
+			<input class="form-control d-inline-block" ng-model="pager.page" style="max-width:85px" type="number"> 
+			/ {{pager.count}}
+			<button class="btn btn-light m-1 ml-4" ng-click="pager.next()">
+				<i class="fas fa-angle-right"></i>
+			</button>
+			<button class="btn btn-light" ng-click="pager.last()">
+				<i class="fas fa-angle-double-right"></i>
+			</button>
+		</div>
+	</div>
+	<table class="table table-hover table-bordered bg-white rounded mt-3 mb-0 v-shadow mb-4">
+         <thead class="thead-light">
+             <tr>
+                 <th class="text-center">#</th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'id' )">Mã SP</a></th>
+                 <th><a href="" class="text-info" ng-click="sortBy( 'category.name' )">Loại SP</a></th>
+                 <th><a href="" class="text-info" ng-click="sortBy( 'brand.name' )">Thương hiệu</a></th>
+                 <th><a href="" class="text-info" ng-click="sortBy( 'name' )">Tên sản phẩm</a></th>
+                 <th class="text-center">Hình</th>
+                 <th class="text-right"><a href="" class="text-info" ng-click="sortBy( 'likesCount' )">Thích</a></th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'quantity' )">SL Tồn</a></th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'price' )">Giá</a></th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'discount' )">Giảm giá</a></th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'salePrice' )">Giá bán</a></th>
+                 <th class="text-center"><a href="" class="text-info" ng-click="sortBy( 'isDeleted' )">Xóa</a></th>
+                 <th class="text-center">Sửa</th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr ng-repeat="( index , item ) in items | orderBy:propertyName:reverse" 
+             	ng-if="pager.isInCurrentPage( index )">
+                 <td class="text-right">{{ index + 1 }}</td>
+                 <td class="text-right">{{ item.id }}</td>
+                 <td>{{ item.category.name }}</td>
+                 <td>{{ item.brand.name }}</td>
+                 <td>{{ item.name }}</td>
+                 <td class="text-center">
+                 	<img 
+                 		ng-if="item.imageName" 
+                 		ng-src="/images/products/{{ item.id }}/{{ item.imageName }}" 
+                 		class="rounded" 
+                 		style="width:50px"
+                 	>
+                 </td>
+                 <td class="text-right">{{ item.likesCount }}</td>
+                 <td class="text-right">{{ item.quantity }}</td>
+                 <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.price | currency : "" : 0 }}<u class="v-font-weight-5">đ</u>
+			     </td>
+                 <td class="text-right">{{ item.discount }}%</td>
+                 <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.salePrice | currency : "" : 0 }}<u class="v-font-weight-5">đ</u>
+			     </td>
+                 
+                 <td class="text-center" ng-if="item.isDeleted"><i class="fa-solid fa-xmark text-danger"></i></td>
+                 <td class="text-center" ng-if="!item.isDeleted"></td>
+	             <td class="p-2 text-center">
+	               	<button class="btn btn-info v-warning py-0 px-1 m-0 v-shadow" ng-click="edit( item )">
+	               		<small class="fas fa-pen mr"></small>
+	               	</button>
+	             </td>
+           	</tr>
+        </tbody>
+    </table>
+    <div>
+		Tổng số sản phẩm: <b>{{ items.length }}</b>
+	</div>
+  
+</div>

@@ -1,0 +1,59 @@
+<div>
+	<h4 class="v-font-weight-3">THỐNG KÊ TỒN KHO THEO LOẠI SẢN PHẨM</h4>
+	<table class="table bg-white table-hover rounded mt-3 mb-0 v-shadow mb-4 td-font-size-14">
+         <thead class="thead-light">
+             <tr>
+                 <th>#</th>
+                 <th>Mã loại sản phẩm</th>
+                 <th>Tên loại sản phẩm</th>
+                 <th class="text-center">Số sản phẩm</th>
+                 <th class="text-center">Tổng số lượng tồn kho</th>
+                 <th class="text-center">Tổng giá trị ước tính hiện tại</th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr ng-repeat="( index , item ) in report1A" >
+                 <td>{{ index + 1 }}</td>
+                 <td>{{ item.category.id }}</td>
+                 <td>{{ item.category.name }}</td>
+                 <td class="text-right">{{ item.count }}</td>
+                 <td class="text-right">{{ item.totalQuantity }}</td>
+                 <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.totalPrice | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+			     </td>
+           	</tr>
+        </tbody>
+    </table>
+    <div>
+		Tổng số dòng: <b>{{ report1A.length }}</b>
+	</div>
+	<hr>
+	<h4 class="v-font-weight-3">THỐNG KÊ TỒN KHO THEO THƯƠNG HIỆU</h4>
+	<table class="table bg-white table-hover rounded mt-3 mb-0 v-shadow mb-4 td-font-size-14">
+         <thead class="thead-light">
+             <tr>
+                 <th>#</th>
+                 <th>Mã thương hiệu</th>
+                 <th>Tên thương hiệu</th>
+                 <th class="text-center">Số sản phẩm</th>
+                 <th class="text-center">Tổng số lượng tồn kho</th>
+                 <th class="text-center">Tổng giá trị ước tính hiện tại</th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr ng-repeat="( index , item ) in report1B" >
+                 <td>{{ index + 1 }}</td>
+                 <td>{{ item.brand.id }}</td>
+                 <td>{{ item.brand.name }}</td>
+                 <td class="text-right">{{ item.count }}</td>
+                 <td class="text-right">{{ item.totalQuantity }}</td>
+                 <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.totalPrice | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+			     </td>
+           	</tr>
+        </tbody>
+    </table>
+    <div>
+		Tổng số dòng: <b>{{ report1B.length }}</b>
+	</div>
+</div>

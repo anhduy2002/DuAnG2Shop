@@ -1,0 +1,303 @@
+<div>
+	<h3 class="v-font-weight-3">THỐNG KÊ DOANH SỐ - DOANH THU TỪNG SẢN PHẨM</h3>
+	<hr>
+	<div>
+		<input class="mr-1" type="radio" id="input-report3-mode-0" name="report3-mode" ng-model="report3.mode" value="0" checked="checked">
+		<label for="input-report3-mode-0">Doanh số + Doanh thu</label>
+		<span class="mx-3"></span>
+		<input class="mr-1" type="radio" id="input-report3-mode-1" name="report3-mode" ng-model="report3.mode" value="1" checked="checked">
+		<label for="input-report3-mode-1">Chỉ doanh số</label>
+		<span class="mx-3"></span>
+		<input class="mr-1" type="radio" id="input-report3-mode-2" name="report3-mode" ng-model="report3.mode" value="2" checked="checked">
+		<label for="input-report3-mode-2">Chỉ doanh thu</label>
+	</div>
+	<hr>
+	<h4 class="v-font-weight-3">THEO NĂM</h4>
+	<div class="v-shadow overflow-auto my-3" style="max-height:500px">
+		<table class="table bg-white table-hover rounded td-font-size-14 mb-0">
+	         <thead class="thead-light">
+	         	<tr>
+	         		<th>Năm\Mã_SP</th>
+	         		<th ng-repeat="productId in productIds" class="vertical-align-middle text-center">
+	         			{{ productId }}
+	         		</th>
+	         	</tr>
+	         </thead>
+	         <tbody>
+	             <tr ng-repeat="year in report3A.years" >
+	             	<td class="vertical-align-middle text-center">
+	             		{{ year }}
+	             	</td>
+	       			<td ng-repeat="productId in productIds" class="text-right {{ report3A.matrix[ year ][ productId ] ? '' : 'bg-light' }} ">
+	       				<div ng-if="report3A.matrix[ year ][ productId ]" >
+	       					<div ng-if="report3.mode == 0 || report3.mode == 1">
+	       						{{ report3A.matrix[ year ][ productId ].count }}
+	       					</div>
+	       					<div ng-if="report3.mode == 0 || report3.mode == 2" class="text-danger v-font-weight-6">
+	       						{{ report3A.matrix[ year ][ productId ].totalCost | currency : "" : 0 }}<u class="v-font-weight-5">đ</u>
+	       					</sdivpan>
+	       				</div>
+	         		</td>
+	       		 </tr>
+	        </tbody>
+	    </table>
+	    <div ng-if="report3.mode == 0 || report3.mode == 1">
+	    	<h6 class="mx-2 mt-4 mb-2">Thống kê max - min doanh số theo sản phẩm ( Bỏ qua sản phẩm chưa được mua lần nào )</h6>
+		    <table class="table bg-white table-hover rounded td-font-size-14 mb-0">
+		         <thead class="thead-light">
+		         	<tr>
+		         		<th class="text-center">Mã SP</th>
+		         		<th ng-repeat="productId in productIds" class="vertical-align-middle text-center">
+		         			{{ productId }}
+		         		</th>
+		         	</tr>
+		         </thead>
+		         <tbody>
+		         	<tr>
+		         		<td class="vertical-align-middle text-center">
+		         			Max
+		         			<br>
+		         			Năm/DS
+		         		</td>
+		         		<th ng-repeat="productId in productIds" class="vertical-align-middle text-center {{ report3A.stCount.maxXs[ productId ] ? '' : 'bg-light' }}">
+		         			{{ report3A.stCount.maxXs[ productId ].i }}
+		         			<br>
+		         			<b>{{ report3A.stCount.maxXs[ productId ].count }}</b>
+		         		</th>
+		         	</tr>
+		         	<tr>
+		         		<td class="vertical-align-middle text-center">
+		         			Min
+		         			<br>
+		         			Năm/DS
+		         		</td>
+		         		<th ng-repeat="productId in productIds" class="vertical-align-middle text-center {{ report3A.stCount.minXs[ productId ] ? '' : 'bg-light' }}">
+		         			{{ report3A.stCount.minXs[ productId ].i }}
+		         			<br>
+		         			<b>{{ report3A.stCount.minXs[ productId ].count }}</b>
+		         		</th>
+		         	</tr>
+		         </tbody>
+			</table>
+			<h6 class="mx-2 mt-4 mb-2">Thống kê max - min doanh số theo năm</h6>
+		    <table class="table bg-white table-hover rounded td-font-size-14 mb-0">
+		         <thead class="thead-light">
+		         	<tr>
+		         		<th class="text-center">Năm</th>
+		         		<th ng-repeat="year in report3A.years" class="vertical-align-middle text-center">
+		         			{{ year }}
+		         		</th>
+		         	</tr>
+		         </thead>
+		         <tbody>
+		         	<tr>
+		         		<td class="vertical-align-middle text-center">
+		         			Max
+		         			<br>
+		         			Mã_SP/DS
+		         		</td>
+		         		<th ng-repeat="year in report3A.years" class="text-center">
+		         			{{ report3A.stCount.maxYs[ year ].i }}
+		         			<br>
+		         			<b>{{ report3A.stCount.maxYs[ year ].count }}</b>
+		         		</th>
+		         	</tr>
+		         	<tr>
+		         		<td class="vertical-align-middle text-center">
+		         			Min
+		         			<br>
+		         			Mã_SP/DS
+		         		</td>
+		         		<th ng-repeat="year in report3A.years" class="text-center">
+		         			{{ report3A.stCount.minYs[ year ].i }}
+		         			<br>
+		         			<b>{{ report3A.stCount.minYs[ year ].count }}</b>
+		         		</th>
+		         	</tr>
+		         </tbody>
+			</table>
+	    </div>
+	    <div ng-if="report3.mode == 0 || report3.mode == 2">
+			<h6 class="mx-2 mt-4 mb-2">Thống kê max - min doanh thu theo sản phẩm ( Bỏ qua sản phẩm chưa được mua lần nào )</h6>
+		    <table class="table bg-white table-hover rounded td-font-size-14 mb-0">
+		         <thead class="thead-light">
+		         	<tr>
+		         		<th class="text-center">Mã SP</th>
+		         		<th ng-repeat="productId in productIds" class="vertical-align-middle text-center">
+		         			{{ productId }}
+		         		</th>
+		         	</tr>
+		         </thead>
+		         <tbody>
+		         	<tr>
+		         		<td class="vertical-align-middle text-center">
+		         			Max
+		         			<br>
+		         			Năm/DS
+		         		</td>
+		         		<th ng-repeat="productId in productIds" class="vertical-align-middle text-center {{ report3A.stTotalCost.maxXs[ productId ] ? '' : 'bg-light' }}">
+		         			{{ report3A.stTotalCost.maxXs[ productId ].i }}
+		         			<br>
+		         			<b>{{ report3A.stTotalCost.maxXs[ productId ].totalCost | currency : "" : 0 }}</b><u class="v-font-weight-5">đ</u>
+		         		</th>
+		         	</tr>
+		         	<tr>
+		         		<td class="vertical-align-middle text-center">
+		         			Min
+		         			<br>
+		         			Năm/DT
+		         		</td>
+		         		<th ng-repeat="productId in productIds" class="vertical-align-middle text-center {{ report3A.stTotalCost.minXs[ productId ] ? '' : 'bg-light' }}">
+		         			{{ report3A.stTotalCost.minXs[ productId ].i }}
+		         			<br>
+		         			<b>{{ report3A.stTotalCost.minXs[ productId ].totalCost | currency : "" : 0 }}</b><u class="v-font-weight-5">đ</u>
+		         		</th>
+		         	</tr>
+		         </tbody>
+			</table>
+			
+			<h6 class="mx-2 mt-4 mb-2">Thống kê max - min doanh thu theo năm</h6>
+		    <table class="table bg-white table-hover rounded td-font-size-14 mb-0">
+		         <thead class="thead-light">
+		         	<tr>
+		         		<th class="text-center">Năm</th>
+		         		<th ng-repeat="year in report3A.years" class="vertical-align-middle text-center">
+		         			{{ year }}
+		         		</th>
+		         	</tr>
+		         </thead>
+		         <tbody>
+		         	<tr>
+		         		<td class="vertical-align-middle text-center">
+		         			Max
+		         			<br>
+		         			Mã_SP/DS
+		         		</td>
+		         		<th ng-repeat="year in report3A.years" class="vertical-align-middle text-center">
+		         			{{ report3A.stTotalCost.maxYs[ year ].i }}
+		         			<br>
+		         			<b>{{ report3A.stTotalCost.maxYs[ year ].totalCost | currency : "" : 0 }}</b><u class="v-font-weight-5">đ</u>
+		         		</th>
+		         	</tr>
+		         	<tr>
+		         		<td class="vertical-align-middle text-center">
+		         			Min
+		         			<br>
+		         			Mã_SP/DS
+		         		</td>
+		         		<th ng-repeat="year in report3A.years" class="vertical-align-middle text-center">
+		         			{{ report3A.stTotalCost.minYs[ year ].i }}
+		         			<br>
+		         			<b>{{ report3A.stTotalCost.minYs[ year ].totalCost | currency : "" : 0 }}</b><u class="v-font-weight-5">đ</u>
+		         		</th>
+		         	</tr>
+		         </tbody>
+			</table>
+		</div>
+	</div>
+	<div>
+		Tổng số dòng: <b>{{ report3A.years.length }}</b>
+	</div>
+	<hr>
+	<h4 class="v-font-weight-3">THEO QUÝ</h4>
+	<div class="v-shadow overflow-auto my-3" style="max-height:500px">
+		<table class="table bg-white table-hover rounded td-font-size-14 mb-0">
+	         <thead class="thead-light">
+	         	<tr>
+	         		<th class="text-center">Quý\Mã_SP</th>
+	         		<th ng-repeat="productId in productIds" class="vertical-align-middle text-center">
+	         			{{ productId }}
+	         		</th>
+	         	</tr>
+	         </thead>
+	         <tbody>
+	             <tr ng-repeat="quarter in report3B.quarters" >
+	             	<td class="vertical-align-middle text-center">
+	             		{{ quarter }}
+	             	</td>
+	       			<td ng-repeat="productId in productIds" class="text-right {{ report3B.matrix[ quarter ][ productId ] ? '' : 'bg-light' }} ">
+	       				<div ng-if="report3B.matrix[ quarter ][ productId ]" >
+	       					<div ng-if="report3.mode == 0 || report3.mode == 1">
+	       						{{ report3B.matrix[ quarter ][ productId ].count }}
+	       					</div>
+	       					<div ng-if="report3.mode == 0 || report3.mode == 2" class="text-danger v-font-weight-6">
+		       					{{ report3B.matrix[ quarter ][ productId ].totalCost | currency : "" : 0 }}<u class="v-font-weight-5">đ</u>
+		       				</div>
+	       				</div>
+	         		</td>
+	       		 </tr>
+	        </tbody>
+	    </table>
+	</div>
+	<div>
+		Tổng số dòng: <b>{{ report3B.quarters.length }}</b>
+	</div>
+	<hr>
+	<h4 class="v-font-weight-3">THEO THÁNG</h4>
+	<div class="v-shadow overflow-auto my-3" style="max-height:500px">
+		<table class="table bg-white table-hover rounded td-font-size-14 mb-0">
+	         <thead class="thead-light">
+	         	<tr>
+	         		<th class="text-center">Tháng\Mã_SP</th>
+	         		<th ng-repeat="productId in productIds" class="vertical-align-middle text-center">
+	         			{{ productId }}
+	         		</th>
+	         	</tr>
+	         </thead>
+	         <tbody>
+	             <tr ng-repeat="month in report3C.months" >
+	             	<td class="vertical-align-middle text-center">
+	             		{{ month }}
+	             	</td>
+	       			<td ng-repeat="productId in productIds" class="text-right {{ report3C.matrix[ month ][ productId ] ? '' : 'bg-light' }} ">
+	       				<div ng-if="report3C.matrix[ month ][ productId ]" >
+	       					<div ng-if="report3.mode == 0 || report3.mode == 1">
+	       						{{ report3C.matrix[ month ][ productId ].count }}
+	       					</div>
+	       					<div ng-if="report3.mode == 0 || report3.mode == 2" class="text-danger v-font-weight-6">
+		       					{{ report3C.matrix[ month ][ productId ].totalCost | currency : "" : 0 }}<u class="v-font-weight-5">đ</u>
+		       				</div>
+	       				</div>
+	         		</td>
+	       		 </tr>
+	        </tbody>
+	    </table>
+	</div>
+	<div>
+		Tổng số dòng: <b>{{ report3C.months.length }}</b>
+	</div>
+	<hr>
+	<h4 class="v-font-weight-3">THEO NGÀY</h4>
+	<div class="v-shadow overflow-auto my-3" style="max-height:500px">
+		<table class="table bg-white table-hover rounded td-font-size-14 mb-0">
+	         <thead class="thead-light">
+	         	<tr>
+	         		<th class="text-center">Ngày\Mã_SP</th>
+	         		<th ng-repeat="productId in productIds" class="vertical-align-middle text-center">
+	         			{{ productId }}
+	         		</th>
+	         	</tr>
+	         </thead>
+	         <tbody>
+	             <tr ng-repeat="day in report3D.days" >
+	             	<td class="vertical-align-middle text-center">
+	             		{{ day }}
+	             	</td>
+	       			<td ng-repeat="productId in productIds" class="text-right {{ report3D.matrix[ day ][ productId ] ? '' : 'bg-light' }} ">
+	       				<div ng-if="report3D.matrix[ day ][ productId ]" >
+	       					<div ng-if="report3.mode == 0 || report3.mode == 1">
+	       						{{ report3D.matrix[ day ][ productId ].count }}
+	       					</div>
+	       					<div ng-if="report3.mode == 0 || report3.mode == 2" class="text-danger v-font-weight-6">
+	       						{{ report3D.matrix[ day ][ productId ].totalCost | currency : "" : 0 }}<u class="v-font-weight-5">đ</u>
+	       					</div>
+	       				</div>
+	         		</td>
+	       		 </tr>
+	        </tbody>
+	    </table>
+	</div>
+	<div>
+		Tổng số dòng: <b>{{ report3D.days.length }}</b>
+	</div>
+</div>

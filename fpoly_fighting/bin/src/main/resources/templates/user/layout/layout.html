@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic( title , main )">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
+	<title th:replace="${ title }">G2SHOP</title>
+	<link rel="stylesheet" href="/user/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="/user/css/v-style.css">
+</head>
+<body>
+	<th:block th:include="/user/layout/topbar"></th:block>
+  	<th:block th:include="user/layout/header"></th:block>
+  	<div th:include="${main}"></div>
+	<th:block th:include="user/layout/footer"></th:block>
+	<th:block th:include="user/layout/js"></th:block>
+</body>
+</html>

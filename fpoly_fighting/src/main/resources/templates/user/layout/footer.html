@@ -1,0 +1,61 @@
+<footer class="container-fluid py-4 mt-5 v-bg-2">
+   	<div class="container">
+     	<div class="row text-light">
+       		<div class="col-lg-3 col-md-12 my-2 p-0">
+	    		<h5 class="mb-3">HỖ TRỢ KHÁCH HÀNG</h5>
+	    		<hr class="w-25 bg-white ml-0">
+	            <ul class="p-0">
+	            	<li><a class="text-light d-block my-0" href="/gioi-thieu">
+		        		Giới thiệu
+		        	</a></li>
+	            	<li><a class="text-light d-block my-0" href="/huong-dan">
+		        		Hướng dẫn
+		        	</a></li>
+		        	<li><a class="text-light d-block my-0" href="/tin-tuc">
+		        		Tin tức
+		        	</a></li>
+		        	<li><a class="text-light d-block my-0" href="/lien-he">
+		        		Liên hệ
+		        	</a></li>
+		        	<li><a class="text-light d-block my-0" href="/dieu-khoan-va-chinh-sach">
+		        		Điều khoản và chính sách
+		        	</a></li>
+	            </ul>
+			</div>
+			<div class="col-lg-4 col-md-12 my-2 p-0">
+	            <h5 class="mb-3">SẢN PHẨM CỦA G2SHOP</h5>
+	            <hr class="w-25 bg-white ml-0">
+	            <ul class="p-0">
+		        	<li th:each="category:${categories}" >
+		        		<a class="text-light d-block my-0" th:href="@{|/san-pham/${category.slug}|}">
+		        			[[${category.name}]]
+		        		</a>
+		        	</li>
+				</button>
+	            </ul>
+			</div>
+			<div class="col-lg-5 col-md-12 my-2 p-0">
+	            <h5 class="mb-3">THÔNG TIN LIÊN HỆ</h5>
+	            <hr class="w-25 bg-white ml-0">
+	            <ul class="p-0">
+	            	<li class="text-light d-block my-0" href="#">
+		        		Hotline: [[${ #strings.substring( basicInformation.phone , 0 , 4 ) + '.' + #strings.substring( basicInformation.phone , 4 , 7 ) + '.' + #strings.substring(basicInformation.phone,7)}]] [[${basicInformation.phone2 != null || basicInformation.phone2 != '' ? '| ' + #strings.substring(basicInformation.phone2,0,4) + '.' + #strings.substring(basicInformation.phone2,4,7) + '.' + #strings.substring(basicInformation.phone2,7) : ''}]]
+		        	</li>
+		        	<li class="text-light d-block my-0" href="#">
+		        		Email: [[${ basicInformation.email }]]
+		        	</li>
+		        	<li class="text-light d-block my-0" href="#">
+		        		Văn phòng đại diện: [[${ basicInformation.address }]]
+		        	</li>
+		        	<li class="my-3">
+		        		[(${ basicInformation.embedAddressCode })]
+		        	</li>
+           		</ul>
+         	</div>
+         	<div class="col-12 text-center v-font-size-small px-0">
+         		<hr class="bg-light opacity-4">
+	            Website Demo G2Shop - Dự án tốt nghiệp - Nhóm 2 - Lớp IT16305_T - FPT Polytechnic @ 2022
+         	</div>
+       	</div>
+    </div>
+</footer>

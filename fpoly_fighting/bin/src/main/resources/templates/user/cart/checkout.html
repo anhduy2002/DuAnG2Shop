@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout/layout::dynamic( ~{ ::title } , ~{ ::main } )}">
+<title>Xem trước đơn hàng - G2Shop</title>
+<main>
+	<div class="container my-3">
+	    <div class="row">
+	    	<div class="col-12 px-3">
+	      		<a href="/" class="v-a-3 mr-1 text-secondary v-font-size-small">Trang chủ</a> /
+	      		<a href="/gio-hang" class="v-a-3 mx-1 text-secondary v-font-size-small">Giỏ hàng của bạn</a> /
+	      		<a href="/khach-hang/xem-truoc-don-hang" class="v-a-3 mx-1 text-secondary v-font-size-small v-font-weight-6">Xem trước đơn hàng</a>
+	      	</div>
+	    </div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-12 px-3">
+				<div class="v-shadow-5 p-3">
+					<h5>
+				    	THÔNG TIN ĐẶT HÀNG
+				    </h5>
+					<div>
+						Người đặt hàng: <b>[[${session.USER.fullname}]]</b> 
+						<span class="mx-2">|</span>
+						Mã KH: <b>[[${ session.USER.id }]]</b>
+						<span class="mx-2">|</span>
+						SĐT: <b>[[${ session.USER.phone }]]</b>
+					</div>
+					<div>
+						Ngày đặt hàng: <b>[[${ #dates.format( createdDate , "dd-MM-yyyy - HH:mm" ) }]]</b>
+					</div>
+					<div class="d-none d-lg-block">
+						<table class="table table-bordered table-hover rounded v-shadow my-3 td-vertical-align-middle bg-white">
+					    	<thead class="thead-light">
+					        	<tr>
+					        		<th class="text-center">STT</th>
+					         		<th class="text-center">Mã SP</th>
+			                 		<th>Tên sản phẩm</th>
+			                 		<th class="text-center">Hình</th>
+			                 		<th class="text-center">Đơn giá</th>
+			                 		<th class="text-center">Số lượng</th>
+			                 		<th class="text-center">Tổng</th>
+					         	</tr>
+							</thead>
+					        <tbody>
+					             <tr th:each="item,iStat:${session.cart.items}">
+					             	<td class="text-right">[[${ iStat.index + 1 }]]</td>
+					                <td class="text-right">[[${ item.product.id }]]</td>
+					                <td>
+					                	<a class="v-text" th:href="@{|/san-pham/${item.product.category.slug}/${item.product.slug}|}">
+					                 		[[${ item.product.name }]]
+					                 	</a>
+					                </td>
+					                <td class="text-center">
+					                	<img 
+					                 		th:src="@{|/images/products/${ item.product.id }/${ item.product.imageName }|}" 
+					                 		class="rounded" 
+					                 		style="width:50px"
+					                 	>
+					                 </td>
+					                 <td class="text-right">
+					                 	<h6 class="text-danger m-0 v-font-weight-6">[[${ #numbers.formatCurrency( item.product.salePrice ) }]]</h6>
+					                 </td>
+					                <td class="text-right">
+					                	<span>[[${item.quantity}]]</span>
+					                 </td>
+					                 <td class="text-right">
+					                 	<h6 class="text-danger m-0 v-font-weight-6">[[${ #numbers.formatCurrency( item.product.salePrice * item.quantity ) }]]</h6>
+					                 </td>
+					             </tr>
+					         </tbody>
+					     </table>
+					</div>
+					<div class="d-lg-none">
+						<table class="table bg-white table-hover rounded v-shadow my-3">
+					    	<thead class="thead-light">
+					        	<tr>
+					         		<th class="text-center">Mã SP</th>
+			                 		<th>Tên sản phẩm</th>
+			                 		<th>Đơn giá</th>
+			                 		<th class="text-center">Số lượng</th>
+					         	</tr>
+							</thead>
+					        <tbody>
+					             <tr th:each="item , iStat : ${ session.cart.items }">
+					                <td class="vertical-align-middle text-right">[[${ item.product.id }]]</td>
+					                <td class="vertical-align-middle">
+					                	<a class="v-text" th:href="@{|/san-pham/${item.product.category.slug}/${item.product.slug}|}">
+					                 		[[${ item.product.name }]]
+					                 	</a>
+					                </td>
+					                 <td class="vertical-align-middle text-right">
+					                 	<b class="text-danger m-0 v-font-weight-6">[[${ #numbers.formatCurrency( item.product.salePrice ) }]]</b>
+					                 </td>
+					                <td class="vertical-align-middle text-right">
+					                	<span>[[${item.quantity}]]</span>
+					             	</td>
+					             </tr>
+					         </tbody>
+					     </table>
+					</div>
+				    <h5>
+				    	Tổng giá trị SP:
+				    	<span class="text-danger m-0 v-font-weight-6 ml-2">[[${ #numbers.formatCurrency( session.cart.totalCost ) }]]</span>
+				    </h5>
+				    <hr>
+				    <h5>
+				    	THÔNG TIN NHẬN HÀNG
+				    </h5>
+				    <form th:object="${orderInfo}" action="/khach-hang/dat-hang" method="POST">
+				    	<div class="row my-3">
+				    		<div class="col-6 p-0 px-3">
+					    		<div 
+									th:if="${ #fields.hasErrors( 'receiverFullname' ) }" 
+									class="text-danger"  
+									th:errors="*{receiverFullname}">
+								</div>
+								<label class="my-1">Họ và tên người nhận hàng: <span class="text-danger">*</span></label>
+								<input 
+									class="form-control w-100" 
+									th:field="*{receiverFullname}"
+									required
+								>
+							</div>
+					    	<div class="col-6 p-0 px-3">
+					    		<div 
+									th:if="${ #fields.hasErrors( 'receiverPhone' ) }" 
+									class="text-danger"  
+									th:errors="*{receiverPhone}">
+								</div>
+								<label class="my-1">SĐT nhận hàng: <span class="text-danger">*</span></label>
+								<input 
+									class="form-control w-100" 
+									th:field="*{receiverPhone}"
+									required
+								>
+							</div>
+				    	</div>
+				    	<div class="my-3">
+				    		<div 
+								th:if="${ #fields.hasErrors( 'receiverAddress' ) }" 
+								class="text-danger"  
+								th:errors="*{receiverAddress}">
+							</div>
+							<label class="my-1">Địa chỉ nhận hàng: <span class="text-danger">*</span></label>
+							<textarea 
+								class="form-control" 
+								rows=4
+								th:field="*{receiverAddress}"
+								required
+							>
+							</textarea>
+						</div>
+						<div class="my-3">
+				    		<div 
+								th:if="${ #fields.hasErrors( 'note' ) }" 
+								class="text-danger"  
+								th:errors="*{note}">
+							</div>
+							<label class="my-1">Ghi chú ( Yêu cầu thêm ): <span class="text-danger">*</span></label>
+							<textarea 
+								class="form-control" 
+								rows=2
+								th:field="*{note}"
+							>
+							</textarea>
+						</div>
+						<hr>
+						<button class="btn btn-info v-shadow-5 mr-1" type="submit">
+	        				<i class="fa-regular fa-circle-check mr-1"></i>
+	        				Đặt hàng
+						</button>
+						<a href="/gio-hang" class="btn btn-success v-shadow-5" type="submit">
+	        				<i class="fa-solid fa-cart-shopping mr-1"></i>
+	        				Quay lại giỏ hàng
+						</a>
+				    </form>
+				</div>
+			</div>
+		</div>
+	</div>    
+</main>
+</html>

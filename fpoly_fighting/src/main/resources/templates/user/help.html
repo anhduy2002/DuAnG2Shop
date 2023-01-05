@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout/layout::dynamic( ~{ ::title } , ~{ ::main } ) }">
+<title>Hướng dẫn xem sản phẩm - G2SHOP</title>
+<main>
+  	<div class="container my-3">
+		<div class="row">
+			<div class="col-12 px-3">
+				<a href="/" class="v-a-3 mr-1 text-secondary v-font-size-small">
+	      			Trang chủ
+	      		</a>
+	      		/
+	      		<a href="/huong-dan" class="v-a-3 mx-1 text-secondary v-font-size-small v-font-weight-6">
+	      			Hướng dẫn
+	      		</a>
+			</div>
+		</div>
+	</div>
+	<div class="container my-3">
+		<div class="row">
+			<div class="col-12 px-3">
+				<h5>HƯỚNG DẪN KHÁCH HÀNG</h5>
+				<div>
+					[(${ basicInformation.getHelpPageCode() })]
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+</html>

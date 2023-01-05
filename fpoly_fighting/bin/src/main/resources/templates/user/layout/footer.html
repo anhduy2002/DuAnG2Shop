@@ -1,0 +1,61 @@
+<footer class="container-fluid py-4 mt-5 v-bg-2">
+   	<div class="container">
+     	<div class="row text-light">
+       		<div class="col-lg-3 col-md-12 my-2 p-0">
+	    		<h5 class="mb-3">HỖ TRỢ KHÁCH HÀNG</h5>
+	    		<hr class="w-25 bg-white ml-0">
+	            <ul class="p-0">
+	            	<li><a class="text-light d-block my-0" href="/gioi-thieu">
+		        		Giới thiệu
+		        	</a></li>
+	            	<li><a class="text-light d-block my-0" href="/huong-dan/xem-san-pham">
+		        		Hướng dẫn
+		        	</a></li>
+		        	<li><a class="text-light d-block my-0" href="/huong-dan/dang-nhap-va-dang-ky">
+		        		Tin tức
+		        	</a></li>
+		        	<li><a class="text-light d-block my-0" href="/huong-dan/dat-hang">
+		        		Liên hệ
+		        	</a></li>
+		        	<li><a class="text-light d-block my-0" href="/chinh-sach-va-dieu-khoan">
+		        		Chính sách - điều khoản
+		        	</a></li>
+	            </ul>
+			</div>
+			<div class="col-lg-4 col-md-12 my-2 p-0">
+	            <h5 class="mb-3">SẢN PHẨM CỦA G2SHOP</h5>
+	            <hr class="w-25 bg-white ml-0">
+	            <ul class="p-0">
+		        	<li th:each="category:${categories}" >
+		        		<a class="text-light d-block my-0" th:href="@{|/san-pham/${category.slug}|}">
+		        			[[${category.name}]]
+		        		</a>
+		        	</li>
+				</button>
+	            </ul>
+			</div>
+			<div class="col-lg-5 col-md-12 my-2 p-0">
+	            <h5 class="mb-3">THÔNG TIN LIÊN HỆ</h5>
+	            <hr class="w-25 bg-white ml-0">
+	            <ul class="p-0">
+	            	<li class="text-light d-block my-0" href="#">
+		        		Hotline: [[${#strings.substring(basicInformation.phone,0,4) + '.' + #strings.substring(basicInformation.phone,4,7) + '.' + #strings.substring(basicInformation.phone,7)}]] [[${basicInformation.phone2 != null || basicInformation.phone2 != '' ? '| ' + #strings.substring(basicInformation.phone2,0,4) + '.' + #strings.substring(basicInformation.phone2,4,7) + '.' + #strings.substring(basicInformation.phone2,7) : ''}]]
+		        	</li>
+		        	<li class="text-light d-block my-0" href="#">
+		        		Email: [[${basicInformation.email}]]
+		        	</li>
+		        	<li class="text-light d-block my-0" href="#">
+		        		Văn phòng đại diện: [[${basicInformation.address}]]
+		        	</li>
+		        	<li class="my-3">
+		        		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.4865023317425!2d106.62110721487085!3d10.850553460787983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752a267ff1e467%3A0x163b4eaa5d42292!2zNzQgxJAuIEzDqiBUaOG7iyBOaG8sIFRydW5nIE3hu7kgVMOieSwgUXXhuq1uIDEyLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZpZXRuYW0!5e0!3m2!1sen!2s!4v1668597617181!5m2!1sen!2s" class="w-100" height="150" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="max-width:450px"></iframe>
+		        	</li>
+           		</ul>
+         	</div>
+         	<div class="col-12 text-center v-font-size-small px-0">
+         		<hr class="bg-light opacity-4">
+	            Website Demo G2Shop - Dự án tốt nghiệp - Nhóm 2 - Lớp IT16305_T - FPT Polytechnic @ 2022
+         	</div>
+       	</div>
+    </div>
+</footer>

@@ -1,0 +1,22 @@
+ <nav class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
+    <button 
+    	class="nav-link active" 
+    	id="nav-tab-list" 
+    	data-bs-toggle="tab" 
+    	data-bs-target="#nav-list" 
+    	type="button" role="tab" 
+    	aria-controls="nav-list" 
+    	aria-selected="false">
+    		Danh sách sản phẩm được yêu thích
+    </button>
+</nav>
+<div class="tab-content p-4" id="nav-tabContent">
+  	<div 
+  		class="tab-pane fade show active" 
+  		id="nav-list" 
+  		role="tabpanel" 
+  		aria-labelledby="nav-list" 
+  		tabindex="0">
+  			<div ng-include="'/admins/html/favorite-product/_table.html'"></div>
+  	</div>
+</div>

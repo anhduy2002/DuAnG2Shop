@@ -1,0 +1,64 @@
+<div class="v-product-box p-4 v-shadow-5 rounded">
+	<div th:if="${product.discount>0}" class="position-absolute bg-danger text-white px-2 py-0 v-shadow-4" style="z-index:1;top:0px;left:0px;border-radius:0px 0px 10px 0px">
+		-[[${ product.discount }]]%
+	</div>
+	<small class="position-absolute text-secondary" style="z-index: 1; top: 5px; right: 10px">
+		[[${ product.viewCount }]] lượt xem
+	</small>
+	<div class="mb-3 v-img-main py-3 text-center">
+		<a th:href="|/san-pham/${product.category.slug}/${product.slug}|">
+			<img th:src="@{|/images/products/${product.id}/${product.imageName}|}" class="w-100" style="max-width:200px">
+		</a>
+	</div>
+	<div class="d-none d-lg-block my-2" style="min-height:50px">
+		[[${ product.name }]]
+	</div>
+	<div class="d-lg-none my-2" style="min-height:75px">
+		[[${ product.name }]]
+	</div>
+	<div th:if="${ product.discount > 0 }" class="text-secondary v-line-through">
+		[[${ #numbers.formatCurrency( product.price ) }]]
+	</div>
+	<div th:if="${ product.discount == 0 }" style="min-height:25px">
+	</div>
+	<h5 lass="v-font-weight-5">[[${ #numbers.formatCurrency( product.salePrice ) }]]</h5>
+	<div class="row mt-3">
+		<div class="col-6 px-3">
+			<h5 class="v-font-weight-6 text-danger m-0 my-1">
+				<a
+					th:unless="${ session.USER }" 
+					class="fa-regular fa-heart" 
+					data-toggle="tooltip" 
+					title="Đăng nhập để yêu thích sản phẩm này">
+				</a> 
+				<th:block th:if="${ session.USER }">
+					<th:block th:if="${ session.USER.role.id == 1 }">
+						<a 
+							th:if="${ #lists.contains( likedProductIdList , product.id ) }" 
+							class="fa-solid fa-heart text-danger v-zoom-2"
+							th:href="@{|/khach-hang/thich-san-pham?productId=${ product.id }|}" >
+						</a>
+						<a 
+							th:unless="${ #lists.contains( likedProductIdList , product.id ) }" 
+							class="fa-regular fa-heart text-danger v-zoom-2"
+							th:href="@{|/khach-hang/thich-san-pham?productId=${ product.id }|}">
+						</a>
+					</th:block>
+					<i th:unless="${ session.USER.role.id == 1 }" class="fa-regular fa-heart"></i> 
+				</th:block>
+				[[${ product.likesCount }]]
+				
+			</h5>
+		</div>
+		<div class="col-6 px-3">
+			<h3 class="text-right m-0 opacity-4">
+				<a 
+					th:href="@{|/gio-hang/them-san-pham?productId=${ product.id }|}" 
+					class="fa-solid fa-circle-plus text-secondary rounded-circle v-zoom"
+					data-toggle="tooltip" 
+					title="Thêm sản phẩm này vào giỏ hàng">
+				</a>			
+			</h3>
+		</div>
+	</div>
+</div>

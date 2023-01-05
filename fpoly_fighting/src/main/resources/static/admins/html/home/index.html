@@ -1,0 +1,21 @@
+<h1 class='text-center mb-4 mt-5 text-secondary v-font-weight-4'>
+	TRANG QUẢN TRỊ CỦA G2SHOP
+	<br>
+	<hr class="v-bg py-1 w-25 d-inline-block">
+</h1>
+<div class="row mb-5">
+	<div class="col-6">
+		<div class='text-right'>
+			<img src='/images/admin.png' style="max-width:300px">
+		</div>
+	</div>
+	<div class="col-6 px-5">
+		<h2 class="mb-3 w-50">Thông tin của bạn<hr></h2>
+		<h4>Mã nhân viên: <b>{{ loggedInStaff.id }}</b></h4>
+		<h4>Họ và tên: <b>{{ loggedInStaff.fullname }}</b></h4>
+		<h4>Vai trò: <b class="text-danger">{{ loggedInStaff.role.name }}</b></h4>
+		<h4>SĐT: <b>{{ loggedInStaff.phone }}</b></h4>
+		<h4>Email: <b>{{ loggedInStaff.email }}</b></h4>
+	</div>
+</div>
+

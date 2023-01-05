@@ -1,0 +1,129 @@
+<h4 class="v-font-weight-3">CHỈNH SỬA ĐƠN HÀNG</h4>
+<hr>
+<div>
+	<h4 class="v-bg-order-{{form.orderStatus.id}} text-dark px-3 py-1 v-shadow-5 v-font-weight-6 rounded" style="float:right">#{{ form.id }}</h4>
+	<div class="my-1">
+		Người đặt hàng: <b class="text-danger font-size-large">{{ form.customer.fullname }}</b>
+		<span class="mx-2">|</span>
+		Mã KH: <b class="text-danger font-size-large">{{ form.customer.id }}</b>
+	</div> 
+	<div class="my-1">
+		Ngày đặt hàng: <b>{{ form.createdDate | date : 'dd-MM-yyyy - HH:mm:ss' }}</b>
+	</div>
+	<div class="my-1">
+		SĐT nhận hàng: <b>{{ form.phone }}</b>
+	</div>
+	<div class="my-1"> 
+		Địa chỉ nhận hàng: <b>{{ form.address }}</b>
+	</div>
+	<hr>
+	<h5 class="mt-3 mb-2">Danh mục sản phẩm đã đặt</h5>
+	<table class="table bg-white table-hover rounded v-shadow mb-3">
+    	<thead class="thead-light">
+        	<tr>
+        		<th>STT</th>
+         		<th>Mã SP</th>
+            	<th>Tên sản phẩm</th>
+            	<th class="text-center">Hình</th>
+            	<th class="text-center">Đơn giá</th>
+            	<th class="text-center">Số lượng</th>
+            	<th class="text-center">Tổng</th>
+         	</tr>
+		</thead>
+        <tbody>
+             <tr ng-repeat="( index , item ) in form.details">
+             	<td class="vertical-align-middle">{{ index + 1 }}</td>
+                <td class="vertical-align-middle">{{ item.product.id }}</td>
+                <td class="vertical-align-middle">
+                 	{{ item.product.name }}
+                </td>
+                <td class="text-center vertical-align-middle">
+                	<img
+                		src = "/images/products/{{ item.product.id }}/{{ item.product.imageName }}" 
+                 		class="rounded" 
+                 		style="width:50px"
+                 	>
+                 </td>
+                 <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.price | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+			     </td>
+                 <td class="text-center">
+                 	{{ item.quantity }}
+                 </td>
+                 <td class="text-danger m-0 v-font-weight-6 text-right">
+                 	{{ item.price * item.quantity | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+                 </td>
+             </tr>
+         </tbody>
+     </table>
+    	Tổng giá trị sản phẩm:
+    	<span class="text-danger m-0 v-font-weight-6 ml-2">
+    		{{ form.totalProductCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+    	</span>
+    <hr>
+    <div class="my-1">
+    	Trạng thái đơn hàng: <b ng-if="form.orderStatus">{{ form.orderStatus.name }}</b>
+    </div>
+    <div class="my-1" ng-if="form.confirmingStaff">
+    	Nhân viên xác nhận: <b>{{ "#" + form.confirmingStaff.id + " - " + form.confirmingStaff.fullname }}</b>
+    </div>
+   	<div class="my-1" ng-if="form.receivedDate">
+    	Ngày nhận hàng: <b>{{ form.receivedDate | date : 'dd-MM-yyyy - HH:mm:ss' }}</b>
+    </div>
+    <div class="my-1" ng-if="form.shippingStaff">
+    	Nhân viên giao hàng: <b>{{ "#" + form.shippingStaff.id + " - " + form.shippingStaff.fullname }}</b>
+    </div>
+    <div class="my-1">
+    	Phí vận chuyển: <b>{{ form.shippingFee | currency : "" : 0 }}<u class="v-font-weight-5">đ</u></b>
+    </div>
+    <hr>
+    <h4>
+    	Tổng giá trị đơn hàng:
+    	<span 
+    		class="text-danger m-0 v-font-weight-6 ml-2">
+    			{{ form.totalCost | currency : "" : 0 }} <u class="v-font-weight-5">đ</u>
+    	</span>
+    </h4>
+    <div ng-if="form.orderStatus.id == 0 && ( loggedInStaff.role.id == 2 || loggedInStaff.role.id == 3 )">
+    	<hr>
+    	<div class="my-3">
+			<label class="mb-2">Nhập phí ship:</label>
+			<input class="form-control" ng-model="form.shippingFee" type="number" min="0">
+		</div>
+    	<button type="button" class="btn btn-info v-shadow-5" ng-click="updateOrderStatus( 1 )" ng-disabled="!isConfirmed">
+			Xác nhận đơn hàng
+		</button>
+		<div style="float:right">
+			<input id="input-isConfirmed" type="checkbox" ng-model="isConfirmed">
+			<label for="input-isConfirmed" class="text-danger v-font-weight-6 ml-1">Xác nhận cập nhật!</label>
+		</div>
+    </div>
+    <div ng-if="form.orderStatus.id == 1 && loggedInStaff.role.id == 4">
+    	<hr>
+    	<button type="button" class="btn btn-info v-shadow-5 mx-2" ng-click="updateOrderStatus( 2 )" ng-disabled="!isConfirmed">
+			Nhận giao đơn hàng
+		</button>
+		<div style="float:right">
+			<input id="input-isConfirmed" type="checkbox" ng-model="isConfirmed">
+			<label for="input-isConfirmed" class="text-danger v-font-weight-6 ml-1">Xác nhận cập nhật!</label>
+		</div>
+    </div>
+    <div ng-if="form.shippingStaff.id == loggedInStaff.id">
+    	<hr>
+    	<button ng-if="form.orderStatus.id == 2" type="button" class="btn btn-info v-shadow-5 mx-2" ng-click="updateOrderStatus( 3 )" ng-disabled="!isConfirmed">
+			Xác nhận đã lấy hàng
+		</button>
+		<button ng-if="form.orderStatus.id == 3" type="button" class="btn btn-info v-shadow-5 mx-2" ng-click="updateOrderStatus( 4 )" ng-disabled="!isConfirmed">
+			Xác nhận đã vận chuyển hàng đến nơi giao hàng
+		</button>
+		<button ng-if="form.orderStatus.id == 4" type="button" class="btn btn-info v-shadow-5 mx-2" ng-click="updateOrderStatus( 5 )" ng-disabled="!isConfirmed">
+			Xác nhận khách hàng đã thanh toán đầy đủ
+		</button>
+		<div style="float:right">
+			<input id="input-isConfirmed" type="checkbox" ng-model="isConfirmed">
+			<label for="input-isConfirmed" class="text-danger v-font-weight-6 ml-1">Xác nhận cập nhật!</label>
+		</div>
+    </div>
+    
+	
+</div>
